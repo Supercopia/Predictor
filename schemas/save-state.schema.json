@@ -1,0 +1,112 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Save State Schema",
+    "description": "Schema for game save states in the Predictor system",
+    "type": "object",
+    "properties": {
+        "version": {
+            "type": "string",
+            "description": "Version of the save state format"
+        },
+        "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When this save state was created"
+        },
+        "gameState": {
+            "type": "object",
+            "properties": {
+                "vitals": {
+                    "type": "object",
+                    "properties": {
+                        "air": {
+                            "type": "number"
+                        },
+                        "water": {
+                            "type": "number"
+                        },
+                        "food": {
+                            "type": "number"
+                        }
+                    },
+                    "required": ["air", "water", "food"]
+                },
+                "inventory": {
+                    "type": "object",
+                    "patternProperties": {
+                        "^(Food Ration|Water Bottle|Air Tank)$": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "location": {
+                    "type": "string",
+                    "enum": ["Camp", "Laurion", "Canyon", "Volcano", "Desert"]
+                },
+                "timeElapsed": {
+                    "type": "number",
+                    "minimum": 0
+                }
+            },
+            "required": ["vitals", "inventory", "location", "timeElapsed"]
+        },
+        "timeline": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "index": {
+                        "type": "integer",
+                        "minimum": 1
+                    },
+                    "action": {
+                        "type": "string"
+                    },
+                    "vitals": {
+                        "type": "object",
+                        "properties": {
+                            "air": {
+                                "type": "number"
+                            },
+                            "water": {
+                                "type": "number"
+                            },
+                            "food": {
+                                "type": "number"
+                            }
+                        },
+                        "required": ["air", "water", "food"]
+                    },
+                    "inventory": {
+                        "type": "object",
+                        "patternProperties": {
+                            "^(Food Ration|Water Bottle|Air Tank)$": {
+                                "type": "integer",
+                                "minimum": 0
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    "location": {
+                        "type": "string",
+                        "enum": ["Camp", "Laurion", "Canyon", "Volcano", "Desert"]
+                    },
+                    "timeElapsed": {
+                        "type": "number",
+                        "minimum": 0
+                    },
+                    "loopFailed": {
+                        "type": "boolean"
+                    },
+                    "failureReason": {
+                        "type": ["string", "null"]
+                    }
+                },
+                "required": ["index", "action", "vitals", "inventory", "location", "timeElapsed", "loopFailed"]
+            }
+        }
+    },
+    "required": ["version", "timestamp", "gameState", "timeline"]
+}

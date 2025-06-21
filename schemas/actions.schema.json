@@ -1,0 +1,52 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Game Actions Schema",
+    "description": "Schema for defining game actions in the Predictor system",
+    "type": "object",
+    "additionalProperties": {
+        "type": "object",
+        "properties": {
+            "time": {
+                "type": "number",
+                "description": "Time cost of the action",
+                "minimum": 0
+            },
+            "inventory": {
+                "type": "array",
+                "description": "Items added to inventory by this action",
+                "items": {
+                    "type": "string",
+                    "enum": ["Food Ration", "Water Bottle", "Air Tank"]
+                }
+            },
+            "location": {
+                "type": "string",
+                "description": "Target location for movement actions"
+            },
+            "locationRequirement": {
+                "type": "string",
+                "description": "Required location to perform this action"
+            },
+            "extraConsumption": {
+                "type": "object",
+                "description": "Additional vital consumption rates",
+                "properties": {
+                    "air": {
+                        "type": "number",
+                        "minimum": 0
+                    },
+                    "water": {
+                        "type": "number",
+                        "minimum": 0
+                    },
+                    "food": {
+                        "type": "number",
+                        "minimum": 0
+                    }
+                },
+                "additionalProperties": false
+            }
+        },
+        "required": ["time"]
+    }
+}

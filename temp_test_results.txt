@@ -1,0 +1,21 @@
+FAIL tests/schemas.test.js
+  ● JSON Schemas › Actions Schema › validates current actions.js content
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    Additional validation errors:
+    data["Take Food Ration"].inventory must be an object with properties
+    data["Take Water Bottle"].inventory must be an object with properties
+    data["Take Air Tank"].inventory must be an object with properties
+
+      13 |         test('validates current actions.js content', () => {
+      14 |             const actions = require('../src/actions').actions;
+    > 15 |             expect(validate(actions)).toBe(true);
+         |                                      ^
+      16 |         });
+      17 | 
+
+      at Object.<anonymous> (tests/schemas.test.js:15:38)

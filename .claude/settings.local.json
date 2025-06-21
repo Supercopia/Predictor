@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(test:*)",
+      "Bash(grep:*)",
+      "Bash(NODE_OPTIONS=--experimental-vm-modules npm test)",
+      "Bash(npm start)",
+      "Bash(diff:*)",
+      "Bash(pkill:*)"
+    ],
+    "deny": []
+  }
+}

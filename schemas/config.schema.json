@@ -1,0 +1,72 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Game Configuration Schema",
+    "description": "Schema for game configuration in the Predictor system",
+    "type": "object",
+    "properties": {
+        "vitals": {
+            "type": "object",
+            "properties": {
+                "air": {
+                    "type": "object",
+                    "properties": {
+                        "initial": {
+                            "type": "number",
+                            "default": 100
+                        },
+                        "consumptionRate": {
+                            "type": "number",
+                            "default": 0.1
+                        }
+                    },
+                    "required": ["initial", "consumptionRate"]
+                },
+                "water": {
+                    "type": "object",
+                    "properties": {
+                        "initial": {
+                            "type": "number",
+                            "default": 100
+                        },
+                        "consumptionRate": {
+                            "type": "number",
+                            "default": 0.1
+                        }
+                    },
+                    "required": ["initial", "consumptionRate"]
+                },
+                "food": {
+                    "type": "object",
+                    "properties": {
+                        "initial": {
+                            "type": "number",
+                            "default": 100
+                        },
+                        "consumptionRate": {
+                            "type": "number",
+                            "default": 0.1
+                        }
+                    },
+                    "required": ["initial", "consumptionRate"]
+                }
+            },
+            "required": ["air", "water", "food"]
+        },
+        "startingLocation": {
+            "type": "string",
+            "enum": ["Camp"],
+            "default": "Camp"
+        },
+        "startingInventory": {
+            "type": "object",
+            "patternProperties": {
+                "^(Food Ration|Water Bottle|Air Tank)$": {
+                    "type": "integer",
+                    "minimum": 0
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "required": ["vitals"]
+}

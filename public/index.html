@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predictor - Time-Loop Game Planner</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Action Selection Panel (Left) -->
+        <aside class="panel action-panel">
+            <div class="panel-header">
+                <h2>Available Actions</h2>
+                <div class="search-box">
+                    <input type="text" id="action-search" placeholder="Search actions...">
+                </div>
+            </div>
+            <div class="action-list" id="available-actions">
+                <!-- Actions will be populated by JavaScript -->
+                <div class="loading">Loading actions...</div>
+            </div>
+        </aside>
+
+        <!-- Main Timeline (Center) -->
+        <main class="timeline-container">
+            <div class="timeline-header">
+                <h2>Timeline</h2>
+                <div class="timeline-controls">
+                    <button id="run-simulation">Run Simulation</button>
+                    <button id="clear-timeline">Clear</button>
+                    <button id="toggle-graph">Show Vitals Graph</button>
+                </div>
+            </div>
+            <div class="timeline" id="timeline">
+                <!-- Timeline items will be added here -->
+                <div class="empty-state">Drag actions here to build your timeline</div>
+                
+                <!-- Vitals Graph Overlay (initially hidden) -->
+                <div id="vitals-graph" class="vitals-graph" style="display: none;">
+                    <div class="graph-container">
+                        <div class="graph-title">Vital Levels Over Time</div>
+                        <div class="graph-lines">
+                            <div class="graph-line">
+                                <span class="line-label">Air</span>
+                                <div class="line-path air-line" id="air-graph"></div>
+                            </div>
+                            <div class="graph-line">
+                                <span class="line-label">Water</span>
+                                <div class="line-path water-line" id="water-graph"></div>
+                            </div>
+                            <div class="graph-line">
+                                <span class="line-label">Food</span>
+                                <div class="line-path food-line" id="food-graph"></div>
+                            </div>
+                        </div>
+                        <div class="graph-time-markers" id="graph-time-markers">
+                            <span>0s</span>
+                            <span>30s</span>
+                            <span>60s</span>
+                            <span>90s</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Current time indicator for simulation -->
+                <div id="current-time-indicator" class="current-time-indicator" style="display: none;">
+                    <div class="current-time-label">0s</div>
+                </div>
+            </div>
+            <div class="timeline-footer">
+                <div class="time-indicator">
+                    <span>Total Time: </span>
+                    <span id="total-time">0s</span>
+                </div>
+            </div>
+        </main>
+
+
+        <!-- Game State Panel (Right) -->
+        <aside class="panel state-panel">
+            <div class="vitals-display">
+                <h3>Vitals</h3>
+                <div class="vital" id="air-display">
+                    <div class="vital-label">Air: <span>100</span>%</div>
+                    <div class="vital-bar">
+                        <div class="vital-fill" style="width: 100%; background-color: #4FC3F7;"></div>
+                    </div>
+                    <div class="vital-detail">
+                        <span>Rate: -0.1/s</span>
+                        <span>Trend: <span class="vital-trend trend-neutral">−</span></span>
+                    </div>
+                </div>
+                <div class="vital" id="water-display">
+                    <div class="vital-label">Water: <span>100</span>%</div>
+                    <div class="vital-bar">
+                        <div class="vital-fill" style="width: 100%; background-color: #4FC3F7;"></div>
+                    </div>
+                    <div class="vital-detail">
+                        <span>Rate: -0.1/s</span>
+                        <span>Trend: <span class="vital-trend trend-neutral">−</span></span>
+                    </div>
+                </div>
+                <div class="vital" id="food-display">
+                    <div class="vital-label">Food: <span>100</span>%</div>
+                    <div class="vital-bar">
+                        <div class="vital-fill" style="width: 100%; background-color: #81C784;"></div>
+                    </div>
+                    <div class="vital-detail">
+                        <span>Rate: -0.1/s</span>
+                        <span>Trend: <span class="vital-trend trend-neutral">−</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="inventory-display">
+                <h3>Inventory</h3>
+                <div class="inventory-grid" id="inventory">
+                    <!-- Inventory items will be populated by JavaScript -->
+                    <div class="empty">Empty</div>
+                </div>
+            </div>
+
+            <div class="location-display">
+                <h3>Current Location</h3>
+                <div id="current-location">Camp</div>
+                <div class="location-selector">
+                    <select id="location-select">
+                        <option value="Camp">Camp</option>
+                        <!-- Other locations will be populated by JavaScript -->
+                    </select>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Action Details Modal -->
+    <div id="action-details-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-action-name">Action Name</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <pre id="modal-action-json"></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diagnostics script disabled to prevent reload loop -->
+    <!-- 
+    <script>
+        // Check if this is running in external browser or direct localhost access
+        if (window.location.hostname === 'localhost' || 
+            window.location.hostname === '127.0.0.1' || 
+            window.location.href.includes('61969')) {
+            // Load diagnostics for troubleshooting
+            document.write('<script src="/js/diagnostics.js?' + Date.now() + '"><\/script>');
+            console.log('Diagnostics mode activated');
+        }
+    </script>
+    -->
+    
+    <!-- Cache buster disabled to prevent issues -->
+    <!-- <script src="/js/cache-buster.js"></script> -->
+    
+    <!-- Load app with cache-busting parameter -->
+    <script>
+        // Add timestamp to script URLs to prevent caching
+        const timestamp = new Date().getTime();
+        const appScript = document.createElement('script');
+        appScript.type = 'module';
+        appScript.src = `/js/app.js?v=${timestamp}`;
+        appScript.onerror = function(e) {
+            console.error('Error loading app script:', e);
+            alert('Failed to load application script. Please refresh the page or clear your browser cache.');
+        };
+        document.head.appendChild(appScript);
+        console.log('Loading app script with timestamp:', timestamp);
+    </script>
+    <script>
+        // Service worker disabled to prevent fetch issues
+        /*
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        */
+            
+            // Show install prompt for PWA
+            let deferredPrompt;
+            window.addEventListener('beforeinstallprompt', (e) => {
+                // Prevent Chrome 67 and earlier from automatically showing the prompt
+                e.preventDefault();
+                // Stash the event so it can be triggered later
+                deferredPrompt = e;
+                
+                // Show install button or notification
+                const installButton = document.createElement('button');
+                installButton.textContent = 'Install App';
+                installButton.style.position = 'fixed';
+                installButton.style.bottom = '20px';
+                installButton.style.right = '20px';
+                installButton.style.padding = '10px 20px';
+                installButton.style.backgroundColor = '#FFD700';
+                installButton.style.color = '#000';
+                installButton.style.border = 'none';
+                installButton.style.borderRadius = '4px';
+                installButton.style.cursor = 'pointer';
+                installButton.style.zIndex = '1000';
+                
+                installButton.addEventListener('click', () => {
+                    // Show the install prompt
+                    deferredPrompt.prompt();
+                    // Wait for the user to respond to the prompt
+                    deferredPrompt.userChoice.then((choiceResult) => {
+                        if (choiceResult.outcome === 'accepted') {
+                            console.log('User accepted the install prompt');
+                        } else {
+                            console.log('User dismissed the install prompt');
+                        }
+                        // Clear the saved prompt since it can't be used again
+                        deferredPrompt = null;
+                        // Remove the install button
+                        installButton.remove();
+                    });
+                });
+                
+                document.body.appendChild(installButton);
+                
+                // Automatically remove the button after 10 seconds
+                setTimeout(() => {
+                    if (document.body.contains(installButton)) {
+                        installButton.remove();
+                    }
+                }, 10000);
+            });
+        }
+    </script>
+</body>
+</html>
