@@ -200,6 +200,8 @@ body {
     flex-direction: column;
     border-left: 1px solid var(--border);
     border-right: 1px solid var(--border);
+    height: 100vh;
+    overflow: hidden;
 }
 
 .timeline-header {
@@ -235,6 +237,7 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
     min-height: 200px;
+    max-height: calc(100vh - 200px);
     position: relative;
     display: flex;
     flex-direction: column;
