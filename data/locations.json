@@ -1,10 +1,43 @@
 {
     "locations": [
-        "Camp",
-        "Laurion",
-        "Canyon",
-        "Volcano",
-        "Desert",
-        "Mountain Peak"
+        {
+            "name": "Camp",
+            "areaResources": {}
+        },
+        {
+            "name": "Laurion",
+            "areaResources": {
+                "air": { "initial": 30, "generation": 0 },
+                "power": { "initial": 25, "generation": 0 }
+            }
+        },
+        {
+            "name": "Canyon", 
+            "areaResources": {}
+        },
+        {
+            "name": "Volcano",
+            "areaResources": {}
+        },
+        {
+            "name": "Desert",
+            "areaResources": {}
+        },
+        {
+            "name": "Mountain Peak",
+            "areaResources": {}
+        },
+        {
+            "name": "Talos",
+            "areaResources": {
+                "air": { "initial": 50, "generation": 0.2 }
+            }
+        },
+        {
+            "name": "Santorini",
+            "areaResources": {
+                "power": { "initial": -1, "generation": 0 }
+            }
+        }
     ]
 }

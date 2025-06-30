@@ -1,0 +1,460 @@
+identifier,name,baseTime
+Meta.Wait,"Wait",60
+Intro.OpenPod,"Open Cryopod",5
+Intro.ExploreFacility,"Explore Facility",10
+Intro.WaterBottle,"Take Small Water Bottle",2
+Intro.InvestigateMainGenerator,"Inspect Main Generator",12
+Intro.RepairMainGenerator,"Repair Main Generator",40
+Intro.InvestigateWater,"Inspect Water Recycler",12
+Intro.ExtractWater,"Extract Water",8
+Intro.InvestigateFood,"Inspect Food Synthesiser",12
+Intro.SynthesiseFood,"Synthesise Food",5
+Intro.InvestigateAir,"Inspect Life Support",15
+Intro.InvestigateGroundFloorDoor,"Inspect Ground Floor Door",10
+Intro.ForceGroundFloorDoor,"Force Ground Floor Door",900
+Intro.HackGroundFloorDoor,"Lift Lockdown",20
+Intro.ExploreGroundFloor,"Explore Ground Floor",20
+Intro.HackAdmin,"Hack Admin Office Door",180
+Intro.ForceAdmin,"Force Admin Office Door",45
+Intro.UnlockAdmin,"Unlock Office Door",5
+Intro.TakeProteinBar,"Take Protein Bar",2
+Intro.PlayAdminLog,"Play Admin Log",10
+Intro.ExploreWorkshop,"Explore Workshop",10
+Intro.TakePDA,"Take Workshop PDA",2
+Intro.WorkshopWaterBottle,"Take Water Pouch",2
+Intro.ExploreVehicleBay,"Explore Vehicle Bay",20
+Intro.InspectRover,"Inspect Rover",20
+Intro.TakeEmergencySuit,"Take Emergency Suit",10
+Intro.CheckOtherCryopods,"Check Other Cryopods",15
+Intro.LifeSupportCoupler,"Take Life Support Coupler",15
+Intro.WaterCoupler,"Take Water Recycler Coupler",15
+Intro.FoodCoupler,"Take Food Synthesiser Coupler",15
+Intro.OfficeCoupler,"Take Office Power Coupler",15
+Intro.WorkshopCoupler,"Take Workshop Coupler",2
+Intro.WorkshopMetal,"Take Metal Sheet",5
+Intro.LeaveInRover,"Leave In Rover",25
+Intro.ParkRover,"Park Rover in Talos",10
+Intro.LoadGenOntoRover,"Load Generator On Rover",10
+Intro.BuildRegulator,"Build Pressure Regulator",30
+Intro.InstallRoverGen,"Install Generator In Rover",60
+Intro.InstallRoverGenWithTools,"Install Generator In Rover",35
+Talos.InspectRoverCharger,"Inspect Rover Charger",15
+Intro.RepairRoverPower,"Repair Rover Power System",45
+Intro.RepairRoverHull,"Repair Rover Hull",45
+Intro.Travelling1,"Follow the Coordinates",45
+Intro.Travelling2,"Follow the Coordinates",45
+Intro.HeadForReflection,"Head For Reflection",30
+Intro.HeadForDerelictRover,"Head For Derelict Rover",20
+Intro.InspectDerelictRover,"Inspect Derelict Rover",25
+Intro.OpenRoverCrate,"Open Containment Crate",10
+Intro.OpenRoverCrateAgain,"Open Containment Crate",10
+Intro.TouchRoverArtifact,"Touch the Artifact",5
+Intro.BackOnCourse,"Get Back On Course",45
+Intro.IgnoreRover,"Bypass the Derelict Rover",20
+Intro.Travelling3,"Follow the Coordinates",120
+Intro.ApproachFacility,"Approach the Facility",45
+Intro.GetUp,"Get Up",88
+Intro.NonEssentialCouplers,"Take Non-Essential Couplers",47
+Intro.RepairUpperFloor,"Repair Upper Floor",60
+Intro.RepairRoverPowerFast,"Repair Rover Power System",92
+Intro.RepairRoverHullFast,"Repair Rover Hull",120
+Intro.RepairRover,"Fully Repair Rover",242
+Talos.BuildSolarMountFull,"Build Solar Panel Mount",70
+Intro.TravelTowardsLaurion,"Travel Towards Laurion",90
+Intro.TravelToLaurion,"Travel to Laurion",185
+Intro.TravelToLaurionDirect,"Travel Directly to Laurion",275
+Intro.FindTunnel,"Find Tunnel to Laurion",60
+Intro.FollowTunnel,"Take Tunnel to Laurion",120
+Intro.FollowTunnelBack,"Take Tunnel to Talos",120
+Intro.FindRouteToDam,"Find Route to Dam",240
+Intro.FindRouteToTalosFromDam,"Find Route to Talos",240
+Intro.DriveToDam,"Drive To Dam",180
+Intro.DriveToTalosFromDam,"Drive To Talos",180
+Intro.DriveToStrabo,"Drive Towards Strabo",1500
+Talos.BuildSolarPanelMount,"Build Solar Panel Mount",45
+Talos.InspectSolarPanels,"Inspect Solar Panels",30
+Talos.InstallSolarPanels,"Install Solar Panels",45
+Talos.ReplaceCarbonFilter,"Replace Carbon Filter",10
+Chapter1.OpenVehicleBay,"Open Vehicle Bay",10
+Chapter1.OpenPersonnelAirlock,"Open Personnel Airlock",10
+Chapter1.EnterVehicleBay,"Enter Vehicle Bay",20
+Chapter1.LeaveRover,"Leave Rover",5
+Chapter1.GenToLaurion,"Move Generator Into Laurion",60
+Chapter1.GenToLaurionPowered,"Move Generator Into Laurion",45
+Chapter1.GenToLaurionParked,"Unload Generator",10
+Chapter1.InstallGenInLaurion,"Install Generator In Laurion",50
+Chapter1.EnterLaurion,"Enter Laurion Facility",25
+Chapter1.EnterLaurionQuick,"Enter Laurion Facility",3
+Chapter1.ReturnToRover,"Return To Rover",5
+Chapter1.ParkRover,"Park Rover in Laurion",10
+Laurion.InspectRoverCharger,"Inspect Rover Charger",15
+Chapter1.ConnectRover,"Connect Rover Charger",5
+Chapter1.DisconnectRover,"Disconnect Rover Charger",5
+Chapter1.LeaveInRover,"Leave In Rover",10
+Chapter1.ExitLaurion,"Exit Laurion Facility",25
+Chapter1.ExitLaurionQuick,"Exit Laurion Facility",3
+Chapter1.AddFuelToGen,"Add Fuel To Generator",5
+Chapter1.ScavengeForFood,"Scavenge For Food",8
+Chapter1.ScavengeForWater,"Scavenge For Water",8
+Chapter1.InspectVehicles,"Inspect Vehicles",80
+Chapter1.InstallWaterRecycler,"Install Water Recycler In Rover",60
+Chapter1.InstallWaterRecyclerParked,"Install Water Recycler In Rover",30
+Chapter1.InstallWaterRecyclerLaurion,"Install Water Recycler In Laurion",20
+Chapter1.WaterBottle,"Fill Water Bottle",10
+Chapter1.ReadDiary,"Read Diary",45
+Chapter1.FinishDiary,"Finish Diary",45
+Chapter1.ExploreFacility,"Explore Facility",45
+Chapter1.InspectUpperFloorDoor,"Inspect Upper Floor Door",8
+Chapter1.ExploreUpperFloor,"Explore Upper Floor",25
+Chapter1.ShutOffBackups,"Shut Off Emergency Systems",15
+Chapter1.TransferPower,"Transfer Power From Cell",8
+Chapter1.InspectAdmin,"Inspect Admin Door",20
+Chapter1.ForceAdmin,"Force Admin Door",40
+Chapter1.HackAdmin,"Hack Admin Door",200
+Chapter1.UnlockAdmin,"Unlock Admin Door",5
+Chapter1.ExploreAdmin,"Explore Admin Office",15
+Chapter1.TakeProteinBar,"Take Protein Bar",2
+Chapter1.SkimAdminLogs,"Skim Admin Logs",40
+Chapter1.SearchTalos,"Search For Talos",40
+Chapter1.SearchSantorini,"Search For Santorini",40
+Chapter1.SearchAstrape,"Search For Astrape",40
+Chapter1.SearchStrabo,"Search For Strabo",120
+Chapter1.SearchPneuma,"Search For Pneuma",90
+Chapter1.InspectMining,"Inspect Unknown Door",20
+Chapter1.OpenMining,"Open Mining Wing",10
+Chapter1.EnterMining,"Enter Mining Wing",3
+Chapter1.InspectExit,"Inspect Exit Controls",5
+Chapter1.BypassExit,"Bypass Exit Controls",20
+Chapter1.TriggerBypass,"Trigger Exit Bypass",5
+Chapter1.ExitMining,"Exit Mining Wing",3
+Chapter1.EnterPit,"Enter Mining Pit",10
+Chapter1.InspectObelisk,"Inspect Obelisk",20
+Chapter1.InspectClothes,"Inspect Clothes",10
+Chapter1.InspectComputer,"Inspect Computer",20
+Chapter1.WatchVideo,"Watch Video Log",20
+Chapter1.InspectEquipment,"Inspect Equipment",10
+Chapter1.EnterEmptyPit,"Enter Mining Pit",10
+Chapter1.StartDigging,"Start Digging",150
+Chapter1.SecondLayer,"Dig Second Layer",260
+Chapter1.ThirdLayer,"Dig Third Layer",420
+Chapter1.FourthLayer,"Dig Fourth Layer",270
+Chapter1.FifthLayer,"Dig Fifth Layer",360
+Chapter1.TouchArtifact,"Touch The Artifact",5
+Chapter1.ExploreCloseFacilities,"Explore Nearby Support Facilities",20
+Chapter1.InspectDrill,"Inspect Drill",30
+Chapter1.InspectTalosDrill,"Inspect Drill",45
+Chapter1.TakeOutsideFood,"Take Food",2
+Chapter1.TakeOutsideWater,"Take Water",2
+Chapter1.ExploreFacilities,"Explore Distant Support Facilities",60
+Chapter1.InspectBackup,"Inspect Backup Generator",40
+Chapter1.TakeFuel,"Take Fuel Cell",4
+Chapter1.InspectTower,"Inspect Scouting Tower",30
+Chapter1.StudyMaps,"Study Maps",50
+Chapter1.StudyReports,"Study Vehicle Reports",50
+Laurion.InspectSolarPanels,"Inspect Solar Panels",30
+Laurion.InstallSolarPanels,"Install Solar Panels",45
+Chapter1.HeadForLostRover,"Head For Lost Rover",45
+Chapter1.SearchForLostRover,"Search For Lost Rover",240
+Chapter1.TriangulateLostRover,"Triangulate Lost Rover",100
+Chapter1.SearchCave,"Search Cave",15
+Chapter1.TakeFood,"Take Food",5
+Chapter1.TakeWater,"Take Water",5
+Chapter1.SearchRover,"Search Lost Rover",15
+Chapter1.TakePowerCell,"Take Empty Power Cell",20
+Chapter1.TakeRegulator,"Install Pressure Regulator",25
+Chapter1.ReturnFromLostRover,"Drive Back to Laurion",45
+Chapter1.ChartCourse,"Plan Route to Santorini",150
+Chapter1.DepartForSantorini,"Depart For Santorini",60
+Chapter1.RockyTerrain1,"Navigate Rocky Terrain",105
+Chapter1.RockyTerrain2,"Navigate Rocky Terrain",105
+Chapter1.DriveToBridge,"Drive To Crossing",30
+Dam.LeaveRover,"Leave Rover",5
+Dam.ReturnToRover,"Return to Rover",5
+Dam.ExploreTheArea,"Explore the Area",45
+Dam.GetClosestCrate,"Get Closest Crate",48
+Dam.GetBlueCrate,"Get Blue Crate",58
+Dam.GetGreyCrate,"Get Grey Crate",53
+Dam.GetGreenCrate,"Get Green Crate",77
+Dam.GetClosestCrate2,"Get Closest Crate",48
+Dam.GetBlueCrate2,"Get Glacier Water Crate",58
+Dam.GetGreyCrate2,"Get Electrical Crate",53
+Dam.GetGreenCrate2,"Get Water Bottle Crate",77
+Chapter1.CrossDam,"Cross River Towards Santorini",10
+Chapter1.InspectControlBooth,"Inspect Control Booth",10
+Chapter1.DriveUpHill,"Drive Up Hill",15
+Road.DamToAstrape1,"Drive Towards Astrape",300
+Road.DamToAstrape2,"Drive Towards Astrape",120
+Road.AstrapeToDam1,"Drive Towards Dam",120
+Road.AstrapeToDam2,"Drive Towards Dam",300
+Chapter1.ExtendDam,"Close Dam",10
+Chapter1.DriveToTalos,"Drive Back To Talos",300
+Road.DamToPneuma,"Drive Towards Pneuma",1200
+Chapter1.DamToLaurion1,"Drive Towards Laurion",30
+Chapter1.DamToLaurion2,"Drive Towards Laurion",105
+Chapter1.DamToLaurion3,"Drive Towards Laurion",105
+Chapter1.DamToLaurion4,"Drive to Laurion",60
+Chapter1.CrossRiverRev,"Cross River Towards Laurion",10
+Chapter1.DriveDownHill,"Drive Down Hill To Dam",5
+Chapter1.GatherSupplies,"Gather Supplies",24
+Chapter1.GatherSuppliesFromRover,"Gather Supplies From Outside",34
+Chapter1.GatherSuppliesEnterLaurion,"Gather Supplies And Enter Laurion",54
+Chapter1.InstallGenFromOutside,"Install Generator In Laurion",110
+Chapter1.InstallGenFromParked,"Install Generator In Laurion",60
+Laurion.ParkRoverFromInside,"Bring Rover Inside",18
+Chapter1.GatherLostSupplies,"Gather Supplies",65
+Chapter1.GatherLostSuppliesFromLaurion,"Gather Lost Rover Supplies",155
+Chapter1.DriveToDam,"Drive to Dam",300
+Dam.CollectCrates,"Collect Crates",236
+Dam.CollectCratesFromRover,"Collect Crates From Outside",246
+Chapter1.CloseAndCross,"Close Dam and Cross Towards Santorini",20
+Chapter1.DriveAcrossRiver,"Drive to Santorini Side of River",566
+Talos.DriveAcrossRiver,"Drive to Santorini Side of River",446
+Chapter1.DamToLaurion,"Drive to Laurion",300
+Road.DamToAstrape,"Drive to Astrape",420
+Road.AstrapeToDam,"Drive to Dam",420
+Laurion.DisconnectAndLeave,"Disconnect Rover and Leave",15
+Chapter2.FollowRidge,"Follow the Ridge",105
+Chapter2.SantoriniToDam1,"Drive Towards Dam",20
+Chapter2.SantoriniToDam2,"Follow Ridge to Dam",105
+Chapter2.ApproachQuarry,"Drive to Quarry Compound",20
+Chapter2.LeaveRoverQuarry,"Leave Rover",5
+Chapter2.ReturnToRoverQuarry,"Return to Rover",5
+Chapter2.EnterControlTower,"Enter Control Tower",5
+Chapter2.ExitControlTower,"Exit Control Tower",5
+Chapter2.SearchLockerRoom,"Search Locker Room",30
+Chapter2.TakeQuarryFood,"Take Food",2
+Chapter2.TakeQuarryWater,"Take Water",2
+Chapter2.TakeSpaceSuit,"Change Into Environment Suit",45
+Chapter2.SearchControlRoom,"Search Control Room",45
+Santorini.UnblockTram,"Unblock Tram",10
+Astrape.BoostTramPower,"Boost Tram Power",10
+Chapter2.RecallMiningMachine,"Recall Mining Machine",5
+Chapter2.ExploreTramQuarry,"Explore Tram Station",20
+Chapter2.CallTheTramToQuarry,"Call Tram",5
+Chapter2.RideTramToAstrape,"Ride Tram To Astrape",5
+Chapter2.RideTramToCentral,"Ride Tram To Central",5
+Chapter2.RideTramToPlateau,"Ride Tram To Plateau",5
+Chapter2.RideTramToQuarry,"Ride Tram To Quarry",5
+Santorini.Quarry.ChargePowerBlock,"Charge Power Block",5
+Santorini.Quarry.TakeChargedBlock,"Take Charged Power Block",1
+Santorini.Quarry.TakeEmptyPowerBlock,"Stop Charging Power Block",5
+Chapter2.ExploreServiceBays,"Explore Service Bays",45
+Chapter2.TakeFuel,"Take Fuel Cell",4
+Chapter2.InspectMiningMachine,"Inspect Mining Machine",60
+Chapter2.InspectMotors,"Inspect Motors",30
+Chapter2.ModifyRover,"Modify Rover for Motors",60
+Chapter2.ModifyRoverInTalos,"Modify Rover for Motors",60
+Chapter2.InstallMotors,"Install Mining Machine Motors",45
+Chapter2.HackQuarryGate,"Hack Quarry Gate",180
+Chapter2.ApproachCentral,"Drive to Central Compound",20
+Chapter2.OpenVehicleBay,"Open Vehicle Bay",5
+Chapter2.ParkRoverCentral,"Park Rover",10
+Chapter2.ConnectRoverCentral,"Connect Rover Charger",5
+Chapter2.DisconnectRoverCentral,"Disconnect Rover Charger",5
+Chapter2.LeaveInRoverCentral,"Leave In Rover",10
+Chapter2.ExploreWorkshop,"Explore Workshop",30
+Chapter2.InspectRovers,"Inspect Incomplete Rovers",45
+Chapter2.InspectBlueprints,"Inspect Blueprints",45
+Chapter2.InstallWaterRecycler,"Install Water Recycler",30
+Chapter2.InstallFastCycler,"Install Quick-Cycling Filter",10
+Chapter2.UnloadGen,"Unload Generator",10
+Chapter2.ExploreBarracks,"Explore Barracks",45
+Chapter2.ReadMariesDiaries,"Read Marie's Diaries",120
+Chapter2.HackAdmin,"Hack Admin Office Door",180
+Chapter2.ForceAdmin,"Force Admin Office Door",45
+Chapter2.UnlockAdmin,"Unlock Office Door",5
+Chapter2.TakeProteinBar,"Take Protein Bar",2
+Chapter2.InspectComputer,"Inspect Admin Computer",60
+Chapter2.WatchArtifactLogs,"Watch Artifact Logs",90
+Chapter2.ExploreDesignLab,"Explore Design Lab",60
+Chapter2.InspectDesignComputers,"Inspect Design Computers",60
+Chapter2.SynthesiseFood,"Synthesise Food",5
+Chapter2.RecycleWater,"Fill Water Bottle",5
+Chapter2.ExploreTramCentral,"Explore Tram Station",30
+Chapter2.CallTheTramToCentral,"Call Tram",5
+Chapter2.DriveAroundPlateau,"Drive Around Plateau",20
+Chapter2.ExploreStorageArea,"Explore Storage Area",45
+Chapter2.ExploreRefinery,"Explore Refinery",45
+Chapter2.ExploreForge,"Explore Forge",45
+Chapter2.InspectUraniumVault,"Inspect Uranium Vault",30
+Chapter2.UnlockUraniumVault,"Unlock Uranium Vault",60
+Chapter2.StartFollowTracks,"Follow Tracks to Astrape",30
+Chapter2.FollowTracks1,"Follow Tracks to Astrape",180
+Chapter2.FollowTracks2,"Follow Tracks to Astrape",180
+Chapter2.CrossField,"Drive Across Fields",150
+Chapter2.ApproachAstrape,"Approach Astrape",30
+Road.AstrapeToSantorini1,"Drive Towards Santorini",30
+Road.AstrapeToSantorini2,"Drive Towards Santorini",150
+Road.AstrapeToSantorini3,"Follow Tracks to Santorini",180
+Road.AstrapeToSantorini4,"Follow Tracks to Santorini",180
+Road.AstrapeToSantorini5,"Follow Tracks to Santorini",30
+Chapter2.DriveToSantorini,"Drive To Santorini",120
+Chapter2.DriveToDam,"Drive To Dam",130
+Santorini.Central.ParkAndConnectRover,"Park and Connect Charger",15
+Santorini.Central.DisconnectAndLeave,"Disconnect Rover and Leave",15
+Talos.ModifyRoverFull,"Modify Rover for Motors",85
+Astrape.ObserveNearQuarry,"Observe Near Quarry",25
+Astrape.ObserveHighlands,"Observe Highlands",120
+Astrape.ObserveNearAstrape,"Observe Area Near Astrape",35
+Tram.InspectControls,"Inspect Tram Controls",10
+Tram.InspectAir,"Inspect Tram Life Support",10
+Astrape.FindHighlandsRoute1,"Find Faster Highlands Route",240
+Astrape.FindHighlandsRoute2,"Find Faster Highlands Route",240
+Astrape.DriveHighlands1,"Drive Towards Astrape",130
+Astrape.DriveHighlands2,"Drive Towards Astrape",130
+Astrape.DriveHighlandsRev1,"Drive Towards Santorini",130
+Astrape.DriveHighlandsRev2,"Drive Towards Santorini",130
+Chapter3.LeaveRover,"Leave Rover",5
+Astrape.LeaveRoverInAirlock,"Leave Rover",5
+Chapter3.ReturnToRover,"Return To Rover",5
+Astrape.ReturnToRoverInAirlock,"Return To Rover",5
+Chapter3.InspectSupport,"Inspect Support Facilities",45
+Chapter3.InspectDeadGreenhouse,"Inspect Dead Greenhouse",45
+Chapter3.OpenVehicleBay,"Open Vehicle Bay",45
+Astrape.ParkRover,"Park Rover in Astrape",10
+Astrape.LeaveInRover,"Leave in Rover",10
+Astrape.EnterVehicleBay,"Enter Vehicle Bay",3
+Astrape.ExitVehicleBay,"Exit Astrape",3
+Chapter3.EnterTramStation,"Enter Tram Station",5
+Chapter3.ExitTramStation,"Exit Tram Station",5
+Chapter3.PushContainer,"Push Container Onto Tram",60
+Chapter3.TakeContainerFood,"Take Fresh Vegetables",2
+Chapter3.RideTramToSantorini,"Ride Tram To Santorini",5
+Tram.RepairTramAir,"Repair Tram Air Recycler",15
+Tram.FillAirFromTram,"Fill Air From Tram",10
+Astrape.CallTram,"Call Tram",5
+Astrape.DriveThroughHighlands,"Drive Through Highlands",260
+Astrape.FollowFieldTracks,"Follow Tracks Through Fields",180
+Astrape.DriveToAstrape,"Drive To Astrape",470
+Astrape.ParkRoverFromInside,"Park Rover",25
+Astrape.InspectVehicles,"Inspect Vehicles",60
+Astrape.TakeVehicleWater,"Take Mini Fridge Water",5
+Astrape.InspectVehicleAirlock,"Inspect Vehicle Airlock",15
+Astrape.ExitThroughVehicleAirlock,"Leave Through Vehicle Airlock",5
+Astrape.DriveRoverIntoAirlock,"Drive Rover Into Airlock",5
+Astrape.DriveRoverOutAirlock,"Drive Rover Out of Airlock",5
+Astrape.VehicleBayToFacility,"Enter Central Sector",5
+Astrape.CycleVehicleAirlock,"Cycle Vehicle Airlock",5
+Astrape.EnterFromTramFirst,"Enter Astrape Proper",5
+Astrape.EnterFromTram,"Enter Civilian Sector",5
+Astrape.ExitToTram,"Enter Tram Station",5
+Astrape.TakeQueueWater,"Take Free Water Bottle",1
+Astrape.EnterVisitorsDoor,"Open Visitors Door",5
+Astrape.ExploreVisitorsCentre,"Explore Visitors Centre",45
+Astrape.InspectOfficeComputers,"Inspect Office Computers",40
+Astrape.ExploreMayorsOffice,"Explore Mayor's Office",15
+Astrape.InspectMayorsComputer,"Inspect Mayor's Computer",25
+Astrape.TakePowahBar,"Take "Powah" Bar",2
+Astrape.BreakEmployeeDoor,"Break Employee Door",15
+Astrape.OpenEmployeeDoor,"Open Employee Door",2
+Astrape.ExploreEmployeeArea,"Explore Employee Area",20
+Astrape.TakeCivWater,"Take Fridge Water Bottle",1
+Astrape.EnterSecurity,"Open Security Door",5
+Astrape.GetTramOverride,"Search for Tram Override Code",30
+Astrape.InspectTramPower,"Inspect Tram Power Supply",30
+Astrape.OpenCivStairs,"Open Basement Door",1
+Astrape.CivStairsToBasement,"Take Stairs to Basement",5
+Astrape.CentralToVehicleBay,"Enter Civilian Vehicle Bay",5
+Astrape.ExploreGroundFloor,"Explore Ground Floor",120
+Astrape.ExploreLivingQuarters,"Explore Living Quarters",30
+Astrape.InspectWaterRecyclerFirst,"Inspect Water Recycler",10
+Astrape.InspectWaterRecycler,"Inspect Water Recycler",10
+Astrape.FillWaterDestroyed,"Fill Water Bottle",5
+Astrape.FillWaterPowerless,"Extract Water",8
+Astrape.InspectFoodSynthesiser,"Inspect Food Synthesiser",15
+Astrape.ExploreRoverBay,"Explore Primary Vehicle Bay",40
+Astrape.StairsToUpper,"Take Stairs to Upper Floor",7
+Astrape.StairsToBasement,"Take Stairs to Basement",5
+Astrape.ExploreWarehouse,"Explore Warehouse",30
+Astrape.TakeWarehouseVeg,"Take Vegetables",2
+Astrape.InspectVtol,"Inspect Aircraft",30
+Astrape.TryRepairVtol,"Reassemble Aircraft",60
+Astrape.RepairVtolEngine,"Repair Aircraft Engine",45
+Astrape.RepairVtolNav,"Repair Aircraft Navigation",30
+Astrape.RepairVtolPower,"Repair Aircraft Power",30
+Astrape.RemoveVtolMotor,"Remove Aircraft Motor",45
+Vtol.AddFuel,"Add Fuel To Aircraft",5
+Vtol.ChargePowerBlock,"Charge Power Block from Aircraft",5
+Vtol.TakeEmptyPowerBlock,"Stop Charging Power Block",5
+Vtol.TakeChargedBlock,"Take Charged Power Block",1
+Vtol.InstallPowerArtifact,"Install Power Artifact in Aircraft",10
+Vtol.RemovePowerArtifact,"Remove Power Artifact from Aircraft",10
+Astrape.FillWaterBottle,"Fill Water Bottle",5
+Astrape.ExploreBasement,"Explore Basement",60
+Astrape.ExploreFacilityMaintenance,"Explore Facility Maintenance",30
+Astrape.ExploreLockerRoom,"Explore Locker Room",15
+Astrape.TakeLockerWater,"Take Glacier Water",1
+Astrape.PrintKeyCard,"Print Key Card",20
+Astrape.DecryptKeyCard,"Decrypt Key Card Data",150
+Astrape.ExploreReservoir,"Explore Reservoir",10
+Astrape.OpenGrate,"Open Filter Grate",5
+Astrape.CollectCrates,"Collect Crates",30
+Astrape.TakeReservoirWater,"Take Glacier Water from Crate",2
+Astrape.TakeAlgae,"Take Algae from Crate",2
+Astrape.TakeCrateCoupler,"Take Power Coupler from Crate",2
+Astrape.TakeCrateCell,"Take Power Cell from Crate",2
+Astrape.EnterReactorMaintenance,"Enter Reactor Maintenance",2
+Astrape.EnterReactorControl,"Enter Reactor Control",2
+Astrape.BasementToGround,"Take Stairs to Ground Floor",7
+Astrape.ExitReactorMaintenance,"Exit Reactor Maintenance",2
+Astrape.ExploreReactorMaintenance,"Explore Reactor Maintenance",30
+Astrape.InspectDroneControl,"Inspect Drone Control",15
+Astrape.InspectDroneMaintenance,"Inspect Drone Maintenance",15
+Astrape.InspectDrones,"Inspect Drones",30
+Astrape.RemovePowerBlock,"Remove Power Block",15
+Astrape.RepairDrone,"Repair Drone",60
+Astrape.DroneToReactor,"Direct Drone to Reactor",45
+Astrape.ExamineArtifact,"Examine Artifact",15
+Astrape.DetachArtifact,"Detach Artifact",15
+Astrape.RecallDrone,"Recall Drone",45
+Astrape.TouchArtifact,"Touch the Artifact",5
+Astrape.InstallPowerArtifact,"Install Power Artifact",10
+Astrape.RemovePowerArtifact,"Remove Power Artifact",10
+Astrape.ExitReactorControl,"Exit Reactor Control",2
+Astrape.ExploreReactorControl,"Explore Reactor Control",15
+Astrape.InspectWarnings,"Inspect Warnings",20
+Astrape.ReactorShutdown,"Initiate Reactor Shutdown",10
+Astrape.ReactorRestart,"Restart Reactor",30
+Astrape.PowerToWaterRecycler,"Excess Power to Water Recycler",5
+Astrape.PowerToAdmin,"Excess Power to Admin Office",5
+Astrape.PowerToCivilian,"Excess Power to Civilian Sector",5
+Astrape.ExploreUpperFloor,"Explore Upper Floor",30
+Astrape.InspectAdmin,"Inspect Admin Office",10
+Astrape.TakeProteinBar,"Take Protein Bar",2
+Astrape.TakeAdminWater,"Take Glacier Water Sample",2
+Astrape.CheckAdminLogs,"Check Admin Logs",60
+Astrape.DecryptHiddenData,"Decrypt Hidden Log Data",30
+Astrape.InspectLifeSupport,"Inspect Life Support",30
+Astrape.TakeFilter,"Take Carbon Filter",5
+Astrape.TakeScrubber,"Take CO2 Scrubber",5
+Astrape.InspectCryopods,"Inspect Cryopods",15
+Astrape.ExploreComms,"Explore Communications",10
+Astrape.ExitToRoof,"Exit to Roof",10
+Astrape.InspectLongRange,"Inspect Long Range Transceiver",15
+Astrape.InspectMidRange,"Inspect Mid Range Transceiver",15
+Astrape.TakeMidRange,"Take Mid Range Transceiver",30
+Astrape.ReturnToComms,"Return Inside",10
+Astrape.UpperToGround,"Take Stairs to Ground Floor",5
+Astrape.SearchGlacier,"Decrypt "Glacier Water" Data",50
+Astrape.SearchArtifact,"Decrypt "Artifact" Data",50
+Astrape.SearchEvacuation,"Decrypt "Evacuation" Data",50
+Rover.TestLeakAirTank,"Try Filling Cabin With Air",10
+Intro.LeakAirTank,"Fill Cabin With Air",4
+Rover.RemovePowerCell,"Remove Full Power Cell",30
+Rover.RemovePowerCellInFacility,"Remove Full Power Cell",10
+Rover.InstallEmptyPowerCell,"Install Empty Power Cell",30
+Rover.InstallFullPowerCell,"Install Full Power Cell",30
+Rover.InstallEmptyPowerCellInFacility,"Install Empty Power Cell",10
+Rover.InstallFullPowerCellInFacility,"Install Full Power Cell",10
+Rover.RemoveEmptyPowerCell,"Remove Empty Power Cell",30
+Rover.RemoveEmptyPowerCellWithTools,"Remove Empty Power Cell",10
+Intro.FillAirTank,"Fill Air Tank",8
+Rover.WaterBottle,"Fill Water Bottle",10
+Rover.ChargePowerBlock,"Charge Power Block",5
+Rover.TakeEmptyPowerBlock,"Stop Charging Power Block",5
+Rover.TakeChargedBlock,"Take Charged Power Block",1
+Rover.AddFuelToGen,"Add Fuel To Generator",5
+Rover.InstallPowerArtifact,"Install Power Artifact on Solar Mount",10
+Rover.RemovePowerArtifact,"Remove Power Artifact from Solar Mount",10
+Generator.InstallPowerArtifact,"Install Power Artifact on Mobile Generator",10
+Generator.RemovePowerArtifact,"Remove Power Artifact from Mobile Generator",10

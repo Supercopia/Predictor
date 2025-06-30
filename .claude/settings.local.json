@@ -8,7 +8,11 @@
       "Bash(NODE_OPTIONS=--experimental-vm-modules npm test)",
       "Bash(npm start)",
       "Bash(diff:*)",
-      "Bash(pkill:*)"
+      "Bash(pkill:*)",
+      "Bash(node server.js)",
+      "Bash(curl:*)",
+      "Bash(npm test)",
+      "Bash(true)"
     ],
     "deny": []
   }

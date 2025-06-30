@@ -1,0 +1,29 @@
+{
+    "events": [
+        {
+            "id": "hunger_starts",
+            "name": "Hunger Starts",
+            "triggerTime": 60,
+            "effects": [
+                {
+                    "type": "startResourceDrain",
+                    "resource": "food"
+                }
+            ],
+            "visible": true
+        },
+        {
+            "id": "carbon_filters_fail",
+            "name": "Carbon Filters Fail",
+            "triggerTime": 120,
+            "effects": [
+                {
+                    "type": "stopAreaGeneration",
+                    "location": "Talos",
+                    "resource": "air"
+                }
+            ],
+            "visible": true
+        }
+    ]
+}

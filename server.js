@@ -135,7 +135,7 @@ app.use(express.static(join(__dirname, 'public')));
 
 // Explicit route handlers for critical JavaScript modules
 app.get('/src/predictor_engine.js', (req, res) => {
-    const filePath = join(__dirname, 'public', 'src', 'predictor_engine.js');
+    const filePath = join(__dirname, 'src', 'predictor_engine.js');
     serveStaticFile(res, filePath, 'application/javascript');
 });
 
@@ -144,14 +144,54 @@ app.get('/src/actions.js', (req, res) => {
     serveStaticFile(res, filePath, 'application/javascript');
 });
 
+app.get('/src/csv_parser.js', (req, res) => {
+    const filePath = join(__dirname, 'src', 'csv_parser.js');
+    serveStaticFile(res, filePath, 'application/javascript');
+});
+
+app.get('/src/familiarity.js', (req, res) => {
+    const filePath = join(__dirname, 'src', 'familiarity.js');
+    serveStaticFile(res, filePath, 'application/javascript');
+});
+
+app.get('/src/area_resources.js', (req, res) => {
+    const filePath = join(__dirname, 'src', 'area_resources.js');
+    serveStaticFile(res, filePath, 'application/javascript');
+});
+
+app.get('/src/events.js', (req, res) => {
+    const filePath = join(__dirname, 'src', 'events.js');
+    serveStaticFile(res, filePath, 'application/javascript');
+});
+
 // Handle relative paths for JavaScript modules
 app.get('/js/*/predictor_engine.js', (req, res) => {
-    const filePath = join(__dirname, 'public', 'src', 'predictor_engine.js');
+    const filePath = join(__dirname, 'src', 'predictor_engine.js');
     serveStaticFile(res, filePath, 'application/javascript');
 });
 
 app.get('/js/*/actions.js', (req, res) => {
     const filePath = join(__dirname, 'public', 'src', 'actions.js');
+    serveStaticFile(res, filePath, 'application/javascript');
+});
+
+app.get('/js/*/csv_parser.js', (req, res) => {
+    const filePath = join(__dirname, 'src', 'csv_parser.js');
+    serveStaticFile(res, filePath, 'application/javascript');
+});
+
+app.get('/js/*/familiarity.js', (req, res) => {
+    const filePath = join(__dirname, 'src', 'familiarity.js');
+    serveStaticFile(res, filePath, 'application/javascript');
+});
+
+app.get('/js/*/area_resources.js', (req, res) => {
+    const filePath = join(__dirname, 'src', 'area_resources.js');
+    serveStaticFile(res, filePath, 'application/javascript');
+});
+
+app.get('/js/*/events.js', (req, res) => {
+    const filePath = join(__dirname, 'src', 'events.js');
     serveStaticFile(res, filePath, 'application/javascript');
 });
 

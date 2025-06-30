@@ -5,9 +5,9 @@ describe('Predictor Engine', () => {
         test('should initialize with correct default state', () => {
             const result = evaluateActionList([]);
             expect(result.summary.finalVitals).toEqual({
-                air: 100,
-                water: 100,
-                food: 100
+                air: 10,
+                water: 10,
+                food: 10
             });
             expect(result.summary.inventory).toEqual({});
             expect(result.summary.location).toBe('Camp');
@@ -17,11 +17,11 @@ describe('Predictor Engine', () => {
 
         test('should properly deduct vitals over time', () => {
             const result = evaluateActionList(['Wait']);
-            // Wait takes 2 time units, should deduct 0.2 from each vital
+            // Wait takes 2 time units, should deduct 0.2 from each vital  
             expect(result.summary.finalVitals).toEqual({
-                air: 99.8,
-                water: 99.8,
-                food: 99.8
+                air: 9.8,
+                water: 9.8,
+                food: 10  // Food drain doesn't start until Hunger Starts event at 60s
             });
         });
 

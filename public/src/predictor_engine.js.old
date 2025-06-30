@@ -19,9 +19,12 @@ let validLocations = ["Camp", "Laurion", "Canyon", "Volcano", "Desert", "Mountai
 export function evaluateActionList(actionList) {
     const timeline = [];
     let state = {
-        air: 100,
-        water: 100,
-        food: 100,
+        air: 10,
+        water: 10,
+        food: 10,
+        airCapacity: 10,
+        waterCapacity: 10,
+        foodCapacity: 10,
         inventory: {},
         location: "Camp",
         loopNumber: 1,
@@ -138,6 +141,11 @@ export function evaluateActionList(actionList) {
                 air: state.air,
                 water: state.water,
                 food: state.food
+            },
+            capacities: {
+                airCapacity: state.airCapacity,
+                waterCapacity: state.waterCapacity,
+                foodCapacity: state.foodCapacity
             },
             inventory: { ...state.inventory },
             location: state.location,
