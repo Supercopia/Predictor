@@ -7,31 +7,45 @@
  * @returns {number} Speed multiplier (1.0 = base speed, higher = faster)
  */
 export function calculateSpeedMultiplier(completions, learningType = "slow") {
+    console.log(`[FAMILIARITY] calculateSpeedMultiplier ENTRY: completions=${completions}, learningType="${learningType}"`);
+    console.log(`[FAMILIARITY] Parameter types: completions=${typeof completions}, learningType=${typeof learningType}`);
+    console.log(`[FAMILIARITY] Parameter validation: completions isNaN=${isNaN(completions)}, isFinite=${isFinite(completions)}`);
+    
     if (completions <= 0) {
+        console.log(`[FAMILIARITY] No completions (${completions} <= 0), returning base speed 1.0`);
         return 1.0; // Base speed for no completions
     }
     
     // Determine learning rate
     const learningRate = learningType === "fast" ? 0.1 : 0.01;
+    console.log(`[FAMILIARITY] Learning rate determined: ${learningRate} (type: ${learningType})`);
     
-    // First completion gets normal bonus + additional 0.2x
-    if (completions === 1) {
-        return 1.0 + learningRate + 0.2; // Normal bonus + extra 0.2x
-    }
-    
-    // Linear progression up to 3x speed
-    const linearMultiplier = 1.0 + (completions * learningRate);
+    // All completions get linear progression + first completion bonus of 0.2x
+    const linearMultiplier = 1.0 + (completions * learningRate) + 0.2;
+    console.log(`[FAMILIARITY] Linear multiplier: 1.0 + (${completions} × ${learningRate}) + 0.2 = ${linearMultiplier}`);
     
     if (linearMultiplier <= 3.0) {
+        console.log(`[FAMILIARITY] Using linear multiplier: ${linearMultiplier} (≤ 3.0)`);
         return linearMultiplier;
     }
     
     // Beyond 3x: diminishing returns approaching 4.32857x asymptote
     // For now, implement a placeholder formula - this will be updated when the final formula is provided
-    const excessCompletions = completions - (2.0 / learningRate); // Completions beyond 3x threshold
-    const diminishingReturns = 1.32857 * (1 - Math.exp(-excessCompletions * 0.1));
+    // Threshold adjusted for the +0.2 bonus: (3.0 - 1.0 - 0.2) / learningRate
+    const threshold = (3.0 - 1.0 - 0.2) / learningRate;
+    const excessCompletions = completions - threshold;
+    console.log(`[FAMILIARITY] Diminishing returns: threshold=${threshold}, excess=${excessCompletions}`);
     
-    return 3.0 + diminishingReturns;
+    const expValue = -excessCompletions * 0.1;
+    const expResult = Math.exp(expValue);
+    const diminishingReturns = 1.32857 * (1 - expResult);
+    console.log(`[FAMILIARITY] Diminishing calculation: exp(${expValue}) = ${expResult}, returns = ${diminishingReturns}`);
+    
+    const finalMultiplier = 3.0 + diminishingReturns;
+    console.log(`[FAMILIARITY] Final multiplier: 3.0 + ${diminishingReturns} = ${finalMultiplier}`);
+    console.log(`[FAMILIARITY] Validation: isNaN=${isNaN(finalMultiplier)}, isFinite=${isFinite(finalMultiplier)}, isInfinity=${finalMultiplier === Infinity}`);
+    
+    return finalMultiplier;
 }
 
 /**
@@ -42,30 +56,52 @@ export function calculateSpeedMultiplier(completions, learningType = "slow") {
  * @returns {number} Effective duration in seconds
  */
 export function calculateActionDuration(baseDuration, learningData, learningType = "slow") {
-    console.log(`calculateActionDuration called: baseDuration=${baseDuration}, learningData=`, learningData, `learningType=${learningType}`);
+    console.log(`[FAMILIARITY] calculateActionDuration ENTRY: baseDuration=${baseDuration}, learningType="${learningType}"`);
+    console.log(`[FAMILIARITY] Learning data:`, learningData);
+    console.log(`[FAMILIARITY] Parameter types: baseDuration=${typeof baseDuration}, learningType=${typeof learningType}`);
+    console.log(`[FAMILIARITY] Parameter validation: baseDuration isNaN=${isNaN(baseDuration)}, isFinite=${isFinite(baseDuration)}`);
     
-    if (!learningData || learningData.value <= 0) {
-        console.log(`No learning data, returning base duration: ${baseDuration}`);
-        return baseDuration; // No learning data = base duration
+    if (!learningData) {
+        console.log(`[FAMILIARITY] No learning data (null/undefined), returning base duration: ${baseDuration}`);
+        return baseDuration;
     }
     
+    if (learningData.value <= 0) {
+        console.log(`[FAMILIARITY] No learning progress (value=${learningData.value} <= 0), returning base duration: ${baseDuration}`);
+        return baseDuration;
+    }
+    
+    console.log(`[FAMILIARITY] Processing learning data: type="${learningData.type}", value=${learningData.value}`);
+    
     if (learningData.type === "completions") {
+        console.log(`[FAMILIARITY] Using completion-based learning`);
         // Standard completion-based learning
         const speedMultiplier = calculateSpeedMultiplier(learningData.value, learningType);
+        console.log(`[FAMILIARITY] Speed multiplier calculated: ${speedMultiplier}`);
+        console.log(`[FAMILIARITY] Multiplier validation: isNaN=${isNaN(speedMultiplier)}, isFinite=${isFinite(speedMultiplier)}, isInfinity=${speedMultiplier === Infinity}`);
+        
         const finalDuration = baseDuration / speedMultiplier;
-        console.log(`Completions learning: ${learningData.value} completions → ${speedMultiplier.toFixed(2)}x speed → ${baseDuration}s becomes ${finalDuration.toFixed(2)}s`);
+        console.log(`[FAMILIARITY] Duration calculation: ${baseDuration} / ${speedMultiplier} = ${finalDuration}`);
+        console.log(`[FAMILIARITY] Final duration validation: isNaN=${isNaN(finalDuration)}, isFinite=${isFinite(finalDuration)}, isInfinity=${finalDuration === Infinity}`);
+        
+        console.log(`[FAMILIARITY] Completions learning: ${learningData.value} completions → ${speedMultiplier.toFixed(2)}x speed → ${baseDuration}s becomes ${finalDuration.toFixed(2)}s`);
         return finalDuration;
     } else if (learningData.type === "timeCompleted") {
+        console.log(`[FAMILIARITY] Using time-based learning`);
         // Partial completion: first X seconds get +0.1x bonus
         const partialTime = Math.min(learningData.value, baseDuration);
         const remainingTime = baseDuration - partialTime;
+        console.log(`[FAMILIARITY] Time breakdown: partial=${partialTime}, remaining=${remainingTime}`);
         
         const acceleratedPartialDuration = partialTime / 1.1; // +0.1x speed bonus
         const normalRemainingDuration = remainingTime; // Base speed
+        const totalDuration = acceleratedPartialDuration + normalRemainingDuration;
+        console.log(`[FAMILIARITY] Time calculation: ${partialTime}/1.1 + ${remainingTime} = ${totalDuration}`);
         
-        return acceleratedPartialDuration + normalRemainingDuration;
+        return totalDuration;
     }
     
+    console.log(`[FAMILIARITY] Unknown learning type "${learningData.type}", returning base duration: ${baseDuration}`);
     return baseDuration; // Fallback to base duration
 }
 
@@ -106,16 +142,23 @@ export function initializeLearningState(csvLearningData, actions) {
  * @returns {Object} Updated learning state entry
  */
 export function incrementCompletion(learningState, actionName) {
+    console.log(`[FAMILIARITY] incrementCompletion ENTRY: actionName="${actionName}"`);
+    console.log(`[FAMILIARITY] Current learning state keys:`, Object.keys(learningState));
+    
     if (!learningState[actionName]) {
+        console.log(`[FAMILIARITY] No existing data for "${actionName}", creating new entry`);
         learningState[actionName] = { type: 'completions', value: 0 };
     }
     
     const currentData = learningState[actionName];
+    console.log(`[FAMILIARITY] Current data for "${actionName}":`, currentData);
     
     if (currentData.type === 'timeCompleted') {
+        console.log(`[FAMILIARITY] Converting timeCompleted to first completion`);
         // First full completion - convert from partial to full completions
         learningState[actionName] = { type: 'completions', value: 1 };
     } else {
+        console.log(`[FAMILIARITY] Incrementing completion count from ${currentData.value} to ${currentData.value + 1}`);
         // Increment completion count
         learningState[actionName] = { 
             type: 'completions', 
@@ -123,6 +166,7 @@ export function incrementCompletion(learningState, actionName) {
         };
     }
     
+    console.log(`[FAMILIARITY] Updated data for "${actionName}":`, learningState[actionName]);
     return learningState[actionName];
 }
 
@@ -132,8 +176,11 @@ export function incrementCompletion(learningState, actionName) {
  * @returns {boolean} True if action should bypass learning
  */
 export function shouldBypassLearning(actionName) {
+    console.log(`[FAMILIARITY] shouldBypassLearning ENTRY: actionName="${actionName}"`);
     // "Wait" is the only action that bypasses learning
-    return actionName === "Meta.Wait" || actionName === "Wait";
+    const shouldBypass = actionName === "Meta.Wait" || actionName === "Wait";
+    console.log(`[FAMILIARITY] Bypass decision: ${shouldBypass}`);
+    return shouldBypass;
 }
 
 /**
@@ -143,13 +190,22 @@ export function shouldBypassLearning(actionName) {
  * @returns {string} "fast" or "slow"
  */
 export function getLearningType(actionName, actions) {
+    console.log(`[FAMILIARITY] getLearningType ENTRY: actionName="${actionName}"`);
+    console.log(`[FAMILIARITY] Actions database type:`, typeof actions);
+    console.log(`[FAMILIARITY] Actions database keys (first 10):`, Object.keys(actions || {}).slice(0, 10));
+    
     const action = actions[actionName];
+    console.log(`[FAMILIARITY] Action lookup result:`, action);
+    
     if (!action) {
-        console.warn(`Action "${actionName}" not found in actions database`);
+        console.warn(`[FAMILIARITY] Action "${actionName}" not found in actions database`);
+        console.log(`[FAMILIARITY] Returning default learning type: "slow"`);
         return "slow"; // Default to slow learning
     }
     
-    return action.learningType || "slow"; // Default to slow if not specified
+    const learningType = action.learningType || "slow";
+    console.log(`[FAMILIARITY] Learning type determined: "${learningType}" (from action.learningType="${action.learningType}")`);
+    return learningType;
 }
 
 /**

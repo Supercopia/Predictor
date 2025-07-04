@@ -1,0 +1,58 @@
+{
+    "Take Food Ration": {
+        "time": 1,
+        "inventory": [
+            "Food Ration"
+        ],
+        "locationRequirement": "Camp",
+        "learningType": "slow"
+    },
+    "Take Water Bottle": {
+        "time": 1,
+        "inventory": [
+            "Water Bottle"
+        ],
+        "locationRequirement": "Camp",
+        "learningType": "slow"
+    },
+    "Wait": {
+        "time": 2,
+        "description": "Rest and recover"
+    },
+    "Travel to Laurion": {
+        "time": 2,
+        "location": "Laurion",
+        "locationRequirement": "Camp",
+        "learningType": "fast"
+    },
+    "Travel to Canyon": {
+        "time": 2,
+        "location": "Canyon",
+        "locationRequirement": "Laurion",
+        "learningType": "fast"
+    },
+    "Travel to Volcano": {
+        "time": 3,
+        "location": "Volcano",
+        "locationRequirement": "Canyon",
+        "learningType": "fast"
+    },
+    "Cross Desert": {
+        "time": 5,
+        "location": "Desert",
+        "locationRequirement": "Canyon",
+        "extraConsumption": {
+            "water": 0.9
+        },
+        "learningType": "fast"
+    },
+    "Climb Mountain": {
+        "time": 4,
+        "location": "Volcano",
+        "locationRequirement": "Volcano",
+        "extraConsumption": {
+            "air": 0.5
+        },
+        "learningType": "fast"
+    }
+}

@@ -25,6 +25,14 @@ let validLocations = ["Camp", "Laurion", "Canyon", "Volcano", "Desert", "Mountai
 })();
 
 export function evaluateActionList(actionList, learningState = {}) {
+    console.log(`[ENGINE] evaluateActionList ENTRY: actionList.length=${actionList.length}`);
+    console.log(`[ENGINE] Action list:`, actionList);
+    console.log(`[ENGINE] Learning state keys:`, Object.keys(learningState));
+    console.log(`[ENGINE] Learning state sample:`, learningState);
+    console.log(`[ENGINE] Actions database type:`, typeof actions);
+    console.log(`[ENGINE] Actions database keys (first 10):`, Object.keys(actions || {}).slice(0, 10));
+    console.log(`[ENGINE] Actions database sample:`, Object.entries(actions || {}).slice(0, 3));
+    
     const timeline = [];
     let state = {
         air: 10,
@@ -34,20 +42,23 @@ export function evaluateActionList(actionList, learningState = {}) {
         waterCapacity: 10,
         foodCapacity: 10,
         inventory: {},
-        location: "Camp",
+        location: "Inside Talos",
         loopNumber: 1,
         timeElapsed: 0,
         loopFailed: false,
         failureReason: null,
         failureIndex: null
     };
+    console.log(`[ENGINE] Initial state:`, state);
     
     // Initialize area resources and events
     const areaResources = new AreaResources();
     const events = new Events();
+    console.log(`[ENGINE] Area resources and events initialized`);
     
     // Create a working copy of learning state for this simulation
     const currentLearningState = JSON.parse(JSON.stringify(learningState));
+    console.log(`[ENGINE] Learning state copy created:`, currentLearningState);
 
     const consumptionRates = {
         air: 0.1,
@@ -94,14 +105,23 @@ export function evaluateActionList(actionList, learningState = {}) {
         }
     }
 
+    console.log(`[ENGINE] Starting action processing loop for ${actionList.length} actions`);
+    
     for (let i = 0; i < actionList.length; i++) {
         const action = actionList[i];
+        console.log(`[ENGINE] \n=== Processing action ${i + 1}/${actionList.length}: "${action}" ===`);
+        console.log(`[ENGINE] Action name type:`, typeof action);
+        
         const effect = actions[action] || {};
-
+        console.log(`[ENGINE] Action effect lookup:`, effect);
+        console.log(`[ENGINE] Effect is empty object:`, Object.keys(effect).length === 0);
+        
         // Validate location requirement
         let locationValid = !effect.locationRequirement || effect.locationRequirement === state.location;
+        console.log(`[ENGINE] Location validation: required="${effect.locationRequirement}", current="${state.location}", valid=${locationValid}`);
 
         if (!locationValid) {
+            console.log(`[ENGINE] Location validation failed, skipping action`);
             timeline.push({
                 index: i + 1,
                 action,
@@ -160,20 +180,33 @@ export function evaluateActionList(actionList, learningState = {}) {
 
         // Calculate actual action duration with learning applied
         let actionDuration;
-        console.log(`Processing action: "${action}"`);
-        console.log(`shouldBypassLearning(${action}):`, shouldBypassLearning(action));
+        console.log(`[ENGINE] Starting duration calculation for "${action}"`);
+        console.log(`[ENGINE] Current time elapsed: ${state.timeElapsed}`);
         
-        if (shouldBypassLearning(action)) {
+        const bypassLearning = shouldBypassLearning(action);
+        console.log(`[ENGINE] Should bypass learning: ${bypassLearning}`);
+        
+        if (bypassLearning) {
             // Wait action uses base time, no learning
             actionDuration = effect.time || 1;
-            console.log(`Action "${action}" bypassed learning, using base duration: ${actionDuration}`);
+            console.log(`[ENGINE] Action "${action}" bypassed learning, using base duration: ${actionDuration}`);
         } else {
             const baseDuration = effect.time || 1;
+            console.log(`[ENGINE] Base duration from effect: ${baseDuration}`);
+            console.log(`[ENGINE] Base duration type: ${typeof baseDuration}`);
+            
             const actionLearningData = currentLearningState[action] || { type: 'completions', value: 0 };
+            console.log(`[ENGINE] Action learning data lookup:`, actionLearningData);
+            console.log(`[ENGINE] Learning data is default:`, !currentLearningState[action]);
+            
             const learningType = getLearningType(action, actions);
-            console.log(`Action "${action}" learning data:`, actionLearningData, `type: ${learningType}`);
+            console.log(`[ENGINE] Learning type determined: "${learningType}"`);
+            
+            console.log(`[ENGINE] Calling calculateActionDuration with:`, { baseDuration, actionLearningData, learningType });
             actionDuration = calculateActionDuration(baseDuration, actionLearningData, learningType);
-            console.log(`Action "${action}" final duration: ${actionDuration} (from base ${baseDuration})`);
+            console.log(`[ENGINE] Duration calculation result: ${actionDuration}`);
+            console.log(`[ENGINE] Duration validation: isNaN=${isNaN(actionDuration)}, isFinite=${isFinite(actionDuration)}, isInfinity=${actionDuration === Infinity}`);
+            console.log(`[ENGINE] Final duration: ${actionDuration} (from base ${baseDuration})`);
         }
 
         // Process events at current time
@@ -193,7 +226,9 @@ export function evaluateActionList(actionList, learningState = {}) {
 
         state.timeElapsed += actionDuration;
         if (effect.inventory) {
-            for (const item of effect.inventory) {
+            // Handle both string and array formats for inventory
+            const inventoryItems = Array.isArray(effect.inventory) ? effect.inventory : [effect.inventory];
+            for (const item of inventoryItems) {
                 state.inventory[item] = (state.inventory[item] || 0) + 1;
             }
         }
@@ -213,7 +248,15 @@ export function evaluateActionList(actionList, learningState = {}) {
 
         // Increment learning for successful action completion
         if (!shouldBypassLearning(action)) {
-            incrementCompletion(currentLearningState, action);
+            console.log(`[ENGINE] Incrementing completion for "${action}"`);
+            const beforeIncrement = currentLearningState[action] ? { ...currentLearningState[action] } : null;
+            console.log(`[ENGINE] Learning data before increment:`, beforeIncrement);
+            
+            const afterIncrement = incrementCompletion(currentLearningState, action);
+            console.log(`[ENGINE] Learning data after increment:`, afterIncrement);
+            console.log(`[ENGINE] Learning state keys after increment:`, Object.keys(currentLearningState));
+        } else {
+            console.log(`[ENGINE] Skipping learning increment for "${action}" (bypassed)`);
         }
 
         const areaResourcesData = areaResources.getAllResources();
@@ -221,7 +264,7 @@ export function evaluateActionList(actionList, learningState = {}) {
         console.log('Adding to timeline - area resources:', areaResourcesData);
         console.log('Adding to timeline - events:', eventsData);
         
-        timeline.push({
+        const timelineEntry = {
             index: i + 1,
             action,
             vitals: {
@@ -244,7 +287,12 @@ export function evaluateActionList(actionList, learningState = {}) {
             learningData: currentLearningState[action] ? { ...currentLearningState[action] } : null,
             areaResources: areaResourcesData,
             events: eventsData
-        });
+        };
+        
+        console.log(`[ENGINE] Timeline entry created:`, timelineEntry);
+        console.log(`[ENGINE] Timeline entry duration validation: actionDuration=${actionDuration}, baseDuration=${effect.time || 1}`);
+        
+        timeline.push(timelineEntry);
     }
 
     const summary = {
@@ -262,6 +310,14 @@ export function evaluateActionList(actionList, learningState = {}) {
         timeElapsed: state.timeElapsed
     };
 
+    console.log(`[ENGINE] Simulation complete. Timeline length: ${timeline.length}`);
+    console.log(`[ENGINE] Final summary:`, summary);
+    console.log(`[ENGINE] Timeline duration samples:`, timeline.slice(0, 3).map(entry => ({
+        action: entry.action,
+        actionDuration: entry.actionDuration,
+        baseDuration: entry.baseDuration
+    })));
+    
     return { timeline, summary };
 }
 

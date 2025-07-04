@@ -291,15 +291,20 @@ let learningState = {}; // Current learning state for simulation
 
 // Initialize with some test learning data for demonstration
 function initializeTestLearningData() {
+    console.log(`[FRONTEND] initializeTestLearningData ENTRY`);
+    
     learningState = {
         "Travel to Laurion": { type: 'completions', value: 2 }, // 1.2x speed (fast: 1.0 + 2×0.1)
         "Cross Desert": { type: 'completions', value: 5 }, // 1.5x speed (fast: 1.0 + 5×0.1)  
         "Take Food Ration": { type: 'completions', value: 10 } // 1.19x speed (slow: 1.1 + 9×0.01)
     };
-    console.log('Test learning data initialized:', learningState);
+    console.log(`[FRONTEND] Test learning data initialized:`, learningState);
+    console.log(`[FRONTEND] Learning state keys:`, Object.keys(learningState));
+    console.log(`[FRONTEND] Learning state validation:`, learningState);
     
     // Add a small delay to ensure DOM is ready for the success message
     setTimeout(() => {
+        console.log(`[FRONTEND] Showing success message for test learning data`);
         showSuccess('Test learning data loaded: ' + Object.keys(learningState).length + ' actions');
     }, 100);
 }
@@ -554,8 +559,45 @@ function renderAvailableActions(filter = '') {
             showActionDetailsModal(action.name);
         });
 
+        // Add left-click handler to add action to top of timeline
+        actionEl.addEventListener('click', (e) => {
+            // Only process if not clicking the view button
+            if (!e.target.closest('.view-action-details')) {
+                e.preventDefault();
+                e.stopPropagation();
+                addActionToTimeline(action, 'top');
+            }
+        });
+
+        // Add right-click handler to add action to bottom of timeline
+        actionEl.addEventListener('contextmenu', (e) => {
+            e.preventDefault(); // Prevent context menu
+            e.stopPropagation();
+            addActionToTimeline(action, 'bottom');
+        });
+
         availableActionsEl.appendChild(actionEl);
     });
+}
+
+// Add action to timeline at specified position
+function addActionToTimeline(actionData, position = 'bottom') {
+    // Create a new object to avoid reference issues
+    const newAction = JSON.parse(JSON.stringify(actionData));
+    // Add count property with default value from global multiplier
+    newAction.count = parseInt(document.getElementById('multiplier-value').value) || 1;
+    
+    if (position === 'top') {
+        timeline.unshift(newAction); // Add to beginning
+    } else if (position === 'bottom') {
+        timeline.push(newAction); // Add to end
+    } else if (typeof position === 'number') {
+        timeline.splice(position, 0, newAction); // Insert at specific index
+    } else {
+        timeline.push(newAction); // Default to bottom
+    }
+    
+    renderTimeline();
 }
 
 // Render the timeline
@@ -809,6 +851,22 @@ function updateVitalsGraph() {
 
         // Calculate scales - always use actual time elapsed for full width utilization
         const maxTime = gameState.timeElapsed;
+        
+        // Handle zero time scenarios (all actions skipped)
+        if (maxTime === 0) {
+            // Show static visualization for zero-time scenario
+            const message = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            message.setAttribute('x', '50%');
+            message.setAttribute('y', '50%');
+            message.setAttribute('text-anchor', 'middle');
+            message.setAttribute('dominant-baseline', 'middle');
+            message.setAttribute('fill', '#666');
+            message.setAttribute('font-size', '14');
+            message.textContent = 'No time elapsed - All actions were skipped';
+            svg.appendChild(message);
+            return;
+        }
+        
         const maxVital = Math.max(...simulationHistory.map(d => Math.max(d.airCapacity, d.waterCapacity, d.foodCapacity))); // Use capacity maximums
         const actualMin = Math.min(...simulationHistory.map(d => Math.min(d.air, d.water, d.food)));
         const yStep = vitalsGraphConfig.yAxisInterval; // Configurable step size
@@ -1167,20 +1225,33 @@ async function runSimulation() {
         if (result.timeline && result.timeline.length > 0) {
             result.timeline.forEach((step, index) => {
                 if (step.actionDuration !== undefined && step.baseDuration !== undefined) {
-                    const speedup = step.baseDuration / step.actionDuration;
-                    console.log(`Action ${index + 1}: "${step.action}" - Base: ${step.baseDuration}s, Actual: ${step.actionDuration.toFixed(2)}s (${speedup.toFixed(2)}x speed)`);
+                    let speedDisplay;
+                    if (step.actionDuration === 0) {
+                        speedDisplay = "Skipped";
+                    } else {
+                        const speedup = step.baseDuration / step.actionDuration;
+                        speedDisplay = `${speedup.toFixed(2)}x speed`;
+                    }
+                    
+                    const failureInfo = step.failureReason ? ` - ${step.failureReason}` : '';
+                    console.log(`Action ${index + 1}: "${step.action}" - Base: ${step.baseDuration}s, Actual: ${step.actionDuration.toFixed(2)}s (${speedDisplay})${failureInfo}`);
                 }
             });
         }
+        
+        // Display simulation results in UI
+        displaySimulationResults(result.timeline);
         
         if (!result || !result.timeline) {
             throw new Error('Invalid simulation result returned from engine');
         }
         
         // Add timeline states to our simulation history
+        console.log(`[FRONTEND] Processing timeline for simulation history...`);
         if (result.timeline && result.timeline.length > 0) {
-            result.timeline.forEach(state => {
-                simulationHistory.push({
+            result.timeline.forEach((state, index) => {
+                console.log(`[FRONTEND] Processing timeline state ${index + 1}:`, state);
+                const historyEntry = {
                     air: state.vitals ? state.vitals.air : state.air,
                     water: state.vitals ? state.vitals.water : state.water,
                     food: state.vitals ? state.vitals.food : state.food,
@@ -1192,7 +1263,9 @@ async function runSimulation() {
                     timeElapsed: state.timeElapsed,
                     areaResources: state.areaResources,
                     events: state.events
-                });
+                };
+                console.log(`[FRONTEND] Adding history entry ${index + 1}:`, historyEntry);
+                simulationHistory.push(historyEntry);
             });
         }
         
@@ -1215,9 +1288,10 @@ async function runSimulation() {
             failureReason: summary.failureReason || null
         };
         
-        console.log('Simulation result:', result);
-        console.log('Updated game state:', gameState);
-        console.log('Simulation history:', simulationHistory);
+        console.log(`[FRONTEND] Simulation result:`, result);
+        console.log(`[FRONTEND] Updated game state:`, gameState);
+        console.log(`[FRONTEND] Simulation history length:`, simulationHistory.length);
+        console.log(`[FRONTEND] Simulation history sample:`, simulationHistory.slice(0, 3));
         
         // Update the UI
         updateGameStateDisplay();
@@ -1228,13 +1302,153 @@ async function runSimulation() {
         }
         
         if (!gameState.loopFailed) {
-            showSuccess('Simulation completed successfully!');
+            // Count successful vs skipped actions
+            const successfulActions = result.timeline.filter(step => step.actionDuration > 0).length;
+            const skippedActions = result.timeline.filter(step => step.actionDuration === 0).length;
+            const message = skippedActions > 0 
+                ? `Simulation complete: ${successfulActions} successful, ${skippedActions} skipped`
+                : `Simulation completed successfully: ${successfulActions} actions executed`;
+            showSuccess(message);
         } else if (gameState.failureReason) {
             showError(`Loop failed: ${gameState.failureReason}`);
         }
     } catch (error) {
-        console.error('Error running simulation:', error);
+        console.error(`[FRONTEND] Error running simulation:`, error);
+        console.error(`[FRONTEND] Error stack:`, error.stack);
         showError(`Simulation error: ${error.message || 'Unknown error'}`);
+    }
+}
+
+// Display simulation results with visual indicators for failed actions
+function displaySimulationResults(timeline) {
+    console.log(`[FRONTEND] Displaying simulation results for ${timeline.length} actions`);
+    
+    // Find or create simulation results container
+    let resultsContainer = document.getElementById('simulation-results');
+    if (!resultsContainer) {
+        resultsContainer = document.createElement('div');
+        resultsContainer.id = 'simulation-results';
+        resultsContainer.innerHTML = '<h3>Simulation Results</h3><div id="results-timeline"></div>';
+        
+        // Insert after the main timeline
+        const timelineContainer = timelineEl.parentElement;
+        timelineContainer.appendChild(resultsContainer);
+    }
+    
+    const resultsTimeline = document.getElementById('results-timeline');
+    resultsTimeline.innerHTML = '';
+    
+    timeline.forEach((step, index) => {
+        const stepEl = document.createElement('div');
+        stepEl.className = 'simulation-step';
+        
+        // Add visual indicator based on success/failure
+        const isSkipped = step.actionDuration === 0;
+        if (isSkipped) {
+            stepEl.classList.add('failed-action');
+        } else {
+            stepEl.classList.add('successful-action');
+        }
+        
+        // Determine status and reason
+        let statusInfo = '';
+        if (isSkipped) {
+            const reason = step.failureReason || 'Action requirements not met';
+            statusInfo = `<div class="failure-reason">❌ ${reason}</div>`;
+        } else {
+            const speedup = step.baseDuration / step.actionDuration;
+            statusInfo = `<div class="success-info">✅ ${speedup.toFixed(2)}x speed</div>`;
+        }
+        
+        stepEl.innerHTML = `
+            <div class="step-content">
+                <div class="step-header">
+                    <span class="step-number">${index + 1}</span>
+                    <span class="step-action">${step.action}</span>
+                    <span class="step-duration">${isSkipped ? 'Skipped' : step.actionDuration.toFixed(2) + 's'}</span>
+                </div>
+                ${statusInfo}
+            </div>
+        `;
+        
+        resultsTimeline.appendChild(stepEl);
+    });
+    
+    // Add CSS styles if not already present
+    if (!document.getElementById('simulation-results-styles')) {
+        const style = document.createElement('style');
+        style.id = 'simulation-results-styles';
+        style.textContent = `
+            #simulation-results {
+                margin-top: 20px;
+                padding: 15px;
+                border: 1px solid #444;
+                border-radius: 5px;
+                background: #2b2b2b;
+                color: #e0e0e0;
+                max-height: 400px;
+                overflow-y: auto;
+            }
+            #simulation-results h3 {
+                margin-top: 0;
+                color: #e0e0e0;
+            }
+            .simulation-step {
+                margin: 5px 0;
+                padding: 8px;
+                border-radius: 3px;
+                border-left: 4px solid transparent;
+            }
+            .simulation-step.successful-action {
+                background: #1a3d1a;
+                border-left-color: #4CAF50;
+            }
+            .simulation-step.failed-action {
+                background: #3d1a1a;
+                border-left-color: #f44336;
+                opacity: 0.9;
+            }
+            .step-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-weight: bold;
+                color: #e0e0e0;
+            }
+            .step-number {
+                background: #0066cc;
+                color: white;
+                padding: 2px 6px;
+                border-radius: 10px;
+                font-size: 0.8em;
+                min-width: 20px;
+                text-align: center;
+            }
+            .failed-action .step-number {
+                background: #cc3333;
+            }
+            .step-action {
+                flex-grow: 1;
+                margin: 0 10px;
+                color: #e0e0e0;
+            }
+            .step-duration {
+                font-family: monospace;
+                color: #b0b0b0;
+            }
+            .failure-reason {
+                margin-top: 5px;
+                font-size: 0.9em;
+                color: #ff6b6b;
+                font-style: italic;
+            }
+            .success-info {
+                margin-top: 5px;
+                font-size: 0.9em;
+                color: #66bb6a;
+            }
+        `;
+        document.head.appendChild(style);
     }
 }
 
@@ -1482,12 +1696,7 @@ function setupEventListeners() {
         // Only process if we have a dragged item with action data
         if (draggedItem && draggedItem.dataset.action) {
             const actionData = JSON.parse(draggedItem.dataset.action);
-            // Create a new object to avoid reference issues
-            const newAction = JSON.parse(JSON.stringify(actionData));
-            // Add count property with default value from global multiplier
-            newAction.count = parseInt(document.getElementById('multiplier-value').value) || 1;
-            timeline.push(newAction);
-            renderTimeline();
+            addActionToTimeline(actionData, 'bottom');
         }
     });
     

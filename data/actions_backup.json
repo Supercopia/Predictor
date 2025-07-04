@@ -224,14 +224,14 @@
         "location": "Outside Talos",
         "locationRequirement": "Inside Talos",
         "learningType": "fast",
-        "actionRequirement": ["Lift Lockdown", "Force Ground Floor Door"]
+        "actionRequirement": null
     },
     "Park Rover in Talos": {
         "time": 10,
         "location": "Inside Talos",
         "locationRequirement": "Outside Talos",
         "learningType": "fast",
-        "actionRequirement": ["Lift Lockdown", "Force Ground Floor Door"]
+        "actionRequirement": null
     },
     "Load Generator On Rover": {
         "time": 10,
@@ -259,9 +259,9 @@
     },
     "Install Generator In Rover": {
         "time": 35,
-        "locationRequirement": "Inside Talos",
+        "locationRequirement": null,
         "learningType": "fast",
-        "actionRequirement": ["Lift Lockdown", "Force Ground Floor Door"],
+        "actionRequirement": null,
         "iterations": "1",
         "inventoryRequirement": "Rover generator"
     },
@@ -295,9 +295,27 @@
     },
     "Follow the Coordinates 2": {
         "time": 45,
-        "location": "Near Derelict Rover",
-        "locationRequirement": "Talos Desert",
-        "learningType": "fast"
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
+    },
+    "Follow the Coordinates 3": {
+        "time": 120,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
     },
     "Head For Reflection": {
         "time": 30,
@@ -308,9 +326,15 @@
     },
     "Head For Derelict Rover": {
         "time": 20,
-        "location": "Derelict Rover",
-        "locationRequirement": "Near Derelict Rover",
-        "learningType": "fast"
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
     },
     "Inspect Derelict Rover": {
         "time": 25,
@@ -339,16 +363,180 @@
         "locationRequirement": "Talos Desert",
         "learningType": "fast"
     },
-    "Follow the Coordinates 3": {
-        "time": 120,
-        "location": "Talos Desert 3",
-        "locationRequirement": "Talos Desert 2",
-        "learningType": "fast"
-    },
     "Approach the Facility": {
         "time": 45,
         "location": "Rover - Outside Laurion",
         "locationRequirement": "Talos Desert 3",
         "learningType": "fast"
+    },
+    "Get Up": {
+        "time": 88,
+        "compositeAction": null
+    },
+    "Take Non-Essential Couplers": {
+        "time": 47,
+        "compositeAction": null
+    },
+    "Repair Upper Floor": {
+        "time": 60,
+        "compositeAction": null
+    },
+    "Fully Repair Rover": {
+        "time": 242,
+        "compositeAction": null
+    },
+    "Build Solar Panel Mount": {
+        "time": 70,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
+    },
+    "Travel Towards Laurion": {
+        "time": 90,
+        "compositeAction": null
+    },
+    "Travel to Laurion": {
+        "time": 185,
+        "compositeAction": null
+    },
+    "Travel Directly to Laurion": {
+        "time": 275,
+        "compositeAction": null
+    },
+    "Find Tunnel to Laurion": {
+        "time": 60,
+        "locationRequirement": "Outside Talos",
+        "iterations": "0"
+    },
+    "Take Tunnel to Laurion": {
+        "time": 120,
+        "location": "Rover - Outside Laurion",
+        "locationRequirement": "Outside Talos",
+        "learningType": "fast"
+    },
+    "Take Tunnel to Talos": {
+        "time": 120,
+        "location": "Outside Talos",
+        "locationRequirement": "Rover - Outside Laurion",
+        "learningType": "fast"
+    },
+    "Find Route to Dam": {
+        "time": 240,
+        "locationRequirement": "Outside Talos",
+        "iterations": "0"
+    },
+    "Find Route to Talos": {
+        "time": 240,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
+    },
+    "Drive To Dam": {
+        "time": 180,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
+    },
+    "Drive To Talos": {
+        "time": 180,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
+    },
+    "Drive Towards Strabo": {
+        "time": 1500,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
+    },
+    "Inspect Solar Panels": {
+        "time": 30,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
+    },
+    "Install Solar Panels": {
+        "time": 45,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
+    },
+    "Replace Carbon Filter": {
+        "time": 10,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
+    },
+    "Open Vehicle Bay": {
+        "time": 10,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
+    },
+    "Open Personnel Airlock": {
+        "time": 10,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
     }
 }

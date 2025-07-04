@@ -1,43 +1,44 @@
 {
     "locations": [
         {
-            "name": "Camp",
-            "areaResources": {}
+            "name": "Inside Talos",
+            "areaResources": null
         },
         {
-            "name": "Laurion",
-            "areaResources": {
-                "air": { "initial": 30, "generation": 0 },
-                "power": { "initial": 25, "generation": 0 }
-            }
+            "name": "Outside Talos"
         },
         {
-            "name": "Canyon", 
-            "areaResources": {}
+            "name": "Talos desert"
         },
         {
-            "name": "Volcano",
-            "areaResources": {}
+            "name": "Talos Desert 2"
         },
         {
-            "name": "Desert",
-            "areaResources": {}
+            "name": "Talos Desert 3"
         },
         {
-            "name": "Mountain Peak",
-            "areaResources": {}
+            "name": "Near Derelict Rover"
         },
         {
-            "name": "Talos",
-            "areaResources": {
-                "air": { "initial": 50, "generation": 0.2 }
-            }
+            "name": "Derelict Rover"
         },
         {
-            "name": "Santorini",
-            "areaResources": {
-                "power": { "initial": -1, "generation": 0 }
-            }
+            "name": "Rover - Outside Laurion"
+        },
+        {
+            "name": "Inside Laurion",
+            "areaResources": null
+        },
+        {
+            "name": "Dam"
+        },
+        {
+            "name": "Inside Santorini",
+            "areaResources": null
+        },
+        {
+            "name": "Inside Astrape",
+            "areaResources": null
         }
     ]
 }

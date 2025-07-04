@@ -1,0 +1,220 @@
+{
+    "Get Up": {
+        "time": 88,
+        "compositeAction": null
+    },
+    "Take Non-Essential Couplers": {
+        "time": 47,
+        "compositeAction": null
+    },
+    "Repair Upper Floor": {
+        "time": 60,
+        "compositeAction": null
+    },
+    "Fully Repair Rover": {
+        "time": 242,
+        "compositeAction": null
+    },
+    "Build Solar Panel Mount": {
+        "time": 70,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
+    },
+    "Travel Towards Laurion": {
+        "time": 90,
+        "compositeAction": null
+    },
+    "Travel to Laurion": {
+        "time": 185,
+        "compositeAction": null
+    },
+    "Travel Directly to Laurion": {
+        "time": 275,
+        "compositeAction": null
+    },
+    "Find Tunnel to Laurion": {
+        "time": 60,
+        "locationRequirement": "Outside Talos",
+        "iterations": "0"
+    },
+    "Take Tunnel to Laurion": {
+        "time": 120,
+        "location": "Rover - Outside Laurion",
+        "locationRequirement": "Outside Talos",
+        "learningType": "fast"
+    },
+    "Take Tunnel to Talos": {
+        "time": 120,
+        "location": "Outside Talos",
+        "locationRequirement": "Rover - Outside Laurion",
+        "learningType": "fast"
+    },
+    "Find Route to Dam": {
+        "time": 240,
+        "locationRequirement": "Outside Talos",
+        "iterations": "0"
+    },
+    "Find Route to Talos": {
+        "time": 240,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
+    },
+    "Drive To Dam": {
+        "time": 180,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
+    },
+    "Drive To Talos": {
+        "time": 180,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
+    },
+    "Drive Towards Strabo": {
+        "time": 1500,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
+    },
+    "Inspect Solar Panels": {
+        "time": 30,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
+    },
+    "Install Solar Panels": {
+        "time": 45,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
+    },
+    "Replace Carbon Filter": {
+        "time": 10,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
+    },
+    "Open Vehicle Bay": {
+        "time": 10,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
+    },
+    "Open Personnel Airlock": {
+        "time": 10,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
+    },
+    "Enter Vehicle Bay": {
+        "time": 20,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
+    },
+    "Follow the Coordinates 2": {
+        "time": 45,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
+    },
+    "Follow the Coordinates 3": {
+        "time": 120,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
+    },
+    "Head For Derelict Rover": {
+        "time": 20,
+        "inventory": null,
+        "location": null,
+        "locationRequirement": null,
+        "learningType": null,
+        "extraConsumption": null,
+        "description": null,
+        "actionRequirement": null,
+        "iterations": null,
+        "inventoryRequirement": null
+    }
+}
