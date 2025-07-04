@@ -1,5 +1,6 @@
 // predictor_engine.js - Game State Evaluator
 import { actions } from './actions.js';
+import { constants } from './constants.js';
 import { 
     calculateActionDuration, 
     incrementCompletion, 
@@ -10,7 +11,7 @@ import { AreaResources } from './area_resources.js';
 import { Events } from './events.js';
 
 // Load locations data for validation
-let validLocations = ["Camp", "Laurion", "Canyon", "Volcano", "Desert", "Mountain Peak"];
+let validLocations = constants.locations.defaultLocations;
 
 // Try to load locations dynamically
 (async () => {
@@ -35,14 +36,14 @@ export function evaluateActionList(actionList, learningState = {}) {
     
     const timeline = [];
     let state = {
-        air: 10,
-        water: 10,
-        food: 10,
-        airCapacity: 10,
-        waterCapacity: 10,
-        foodCapacity: 10,
+        air: constants.vitals.initialVitals,
+        water: constants.vitals.initialVitals,
+        food: constants.vitals.initialVitals,
+        airCapacity: constants.vitals.initialCapacities,
+        waterCapacity: constants.vitals.initialCapacities,
+        foodCapacity: constants.vitals.initialCapacities,
         inventory: {},
-        location: "Inside Talos",
+        location: constants.locations.startingLocation,
         loopNumber: 1,
         timeElapsed: 0,
         loopFailed: false,
@@ -61,15 +62,15 @@ export function evaluateActionList(actionList, learningState = {}) {
     console.log(`[ENGINE] Learning state copy created:`, currentLearningState);
 
     const consumptionRates = {
-        air: 0.1,
-        water: 0.1,
-        food: 0.1
+        air: constants.vitals.baseConsumptionRate,
+        water: constants.vitals.baseConsumptionRate,
+        food: constants.vitals.baseConsumptionRate
     };
 
     const restoreFromInventory = {
-        "Air Tank": { air: 100 },
-        "Water Bottle": { water: 100 },
-        "Food Ration": { food: 100 }
+        "Air Tank": { air: constants.inventory.airTankRestoration },
+        "Water Bottle": { water: constants.inventory.waterBottleRestoration },
+        "Food Ration": { food: constants.inventory.foodRationRestoration }
     };
 
     function applyVitalDrain(state, effect, areaResources, events) {

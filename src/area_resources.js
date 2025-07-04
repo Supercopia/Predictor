@@ -1,3 +1,5 @@
+import { constants } from './constants.js';
+
 class AreaResources {
     constructor() {
         this.resources = new Map();
@@ -22,7 +24,7 @@ class AreaResources {
 
         // Initialize generators (resource generation rates)
         this.generators.set('Talos', {
-            air: 0.2  // +0.2/s air generation
+            air: constants.areaResources.airGenerationRate  // Air generation rate
         });
     }
 

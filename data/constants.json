@@ -1,0 +1,70 @@
+{
+  "// Game Constants Configuration": "All configurable constants for the Predictor game simulation",
+  
+  "// === FAMILIARITY AND LEARNING SYSTEM ===": "Constants for action learning and speed multipliers",
+  "familiarity": {
+    "// Learning rates per completion": "How much speed bonus each completion adds",
+    "fastLearningRate": 0.05,
+    "slowLearningRate": 0.01,
+    
+    "// Base values": "Starting values and bonuses",
+    "baseSpeedMultiplier": 1.0,
+    "firstCompletionBonus": 0.2,
+    
+    "// Soft cap system": "Linear progression limit and diminishing returns",
+    "softCap": 3.0,
+    "reductionFactor": 0.93,
+    "asymptoteLimit": 4.32857,
+    
+    "// Partial completion bonus": "Speed bonus for partially completed actions",
+    "partialCompletionBonus": 1.1
+  },
+  
+  "// === VITAL RESOURCES SYSTEM ===": "Air, water, food consumption and capacity",
+  "vitals": {
+    "// Consumption rates per second": "Base drain rates for all vitals",
+    "baseConsumptionRate": 0.1,
+    
+    "// Starting values": "Initial vital levels and capacities",
+    "initialVitals": 10,
+    "initialCapacities": 10,
+    
+    "// Auto-consumption threshold": "When auto-consume items are used",
+    "autoConsumeThreshold": 0
+  },
+  
+  "// === AREA RESOURCES SYSTEM ===": "Location-based resource generation",
+  "areaResources": {
+    "// Generation rates per second": "Resource production rates by location",
+    "airGenerationRate": 0.2,
+    
+    "// Resource limits": "Maximum resource amounts per location", 
+    "defaultResourceLimit": -1,
+    
+    "// Supported resource types": "Valid resource types for locations",
+    "resourceTypes": ["air", "water", "food", "power"]
+  },
+  
+  "// === TIME SYSTEM ===": "Time-based mechanics and intervals",
+  "time": {
+    "// Event timing": "Various time-based triggers and intervals",
+    "baseEventInterval": 1.0
+  },
+  
+  "// === INVENTORY SYSTEM ===": "Item restoration and capacity",
+  "inventory": {
+    "// Item restoration values": "How much each item restores",
+    "airTankRestoration": 100,
+    "waterBottleRestoration": 100,
+    "foodRationRestoration": 100
+  },
+  
+  "// === LOCATION SYSTEM ===": "Default locations and validation",
+  "locations": {
+    "// Default valid locations": "Fallback locations if locations.json fails to load",
+    "defaultLocations": ["Camp", "Laurion", "Canyon", "Volcano", "Desert", "Mountain Peak"],
+    
+    "// Starting location": "Where the character begins",
+    "startingLocation": "Inside Talos"
+  }
+}

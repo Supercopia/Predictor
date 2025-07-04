@@ -1,4 +1,5 @@
 // familiarity.js - Action learning and familiarity system
+import { constants } from './constants.js';
 
 /**
  * Calculates the speed multiplier for an action based on completion count
@@ -13,35 +14,35 @@ export function calculateSpeedMultiplier(completions, learningType = "slow") {
     
     if (completions <= 0) {
         console.log(`[FAMILIARITY] No completions (${completions} <= 0), returning base speed 1.0`);
-        return 1.0; // Base speed for no completions
+        return constants.familiarity.baseSpeedMultiplier; // Base speed for no completions
     }
     
     // Determine learning rate
-    const learningRate = learningType === "fast" ? 0.1 : 0.01;
+    const learningRate = learningType === "fast" ? constants.familiarity.fastLearningRate : constants.familiarity.slowLearningRate;
     console.log(`[FAMILIARITY] Learning rate determined: ${learningRate} (type: ${learningType})`);
     
-    // All completions get linear progression + first completion bonus of 0.2x
-    const linearMultiplier = 1.0 + (completions * learningRate) + 0.2;
+    // All completions get linear progression + first completion bonus
+    const linearMultiplier = constants.familiarity.baseSpeedMultiplier + (completions * learningRate) + constants.familiarity.firstCompletionBonus;
     console.log(`[FAMILIARITY] Linear multiplier: 1.0 + (${completions} × ${learningRate}) + 0.2 = ${linearMultiplier}`);
     
-    if (linearMultiplier <= 3.0) {
-        console.log(`[FAMILIARITY] Using linear multiplier: ${linearMultiplier} (≤ 3.0)`);
+    if (linearMultiplier <= constants.familiarity.softCap) {
+        console.log(`[FAMILIARITY] Using linear multiplier: ${linearMultiplier} (≤ ${constants.familiarity.softCap})`);
         return linearMultiplier;
     }
     
-    // Beyond 3x: diminishing returns approaching 4.32857x asymptote
-    // For now, implement a placeholder formula - this will be updated when the final formula is provided
-    // Threshold adjusted for the +0.2 bonus: (3.0 - 1.0 - 0.2) / learningRate
-    const threshold = (3.0 - 1.0 - 0.2) / learningRate;
-    const excessCompletions = completions - threshold;
-    console.log(`[FAMILIARITY] Diminishing returns: threshold=${threshold}, excess=${excessCompletions}`);
+    // Beyond softcap: diminishing returns using geometric series
+    // Calculate how much linear progression exceeded the soft cap
+    const bonusOverCap = linearMultiplier - constants.familiarity.softCap;
+    const completionsOverCap = bonusOverCap / learningRate;
+    console.log(`[FAMILIARITY] Diminishing returns: bonusOverCap=${bonusOverCap}, completionsOverCap=${completionsOverCap}`);
     
-    const expValue = -excessCompletions * 0.1;
-    const expResult = Math.exp(expValue);
-    const diminishingReturns = 1.32857 * (1 - expResult);
-    console.log(`[FAMILIARITY] Diminishing calculation: exp(${expValue}) = ${expResult}, returns = ${diminishingReturns}`);
+    // Use geometric series formula: a * (1 - r^n) / (1 - r)
+    const a = constants.familiarity.fastLearningRate; // Base multiplier is always fast learning rate
+    const r = constants.familiarity.reductionFactor;
+    const diminishedExcess = a * (1 - Math.pow(r, completionsOverCap)) / (1 - r);
+    console.log(`[FAMILIARITY] Geometric series: ${a} * (1 - ${r}^${completionsOverCap}) / (1 - ${r}) = ${diminishedExcess}`);
     
-    const finalMultiplier = 3.0 + diminishingReturns;
+    const finalMultiplier = constants.familiarity.softCap + diminishedExcess;
     console.log(`[FAMILIARITY] Final multiplier: 3.0 + ${diminishingReturns} = ${finalMultiplier}`);
     console.log(`[FAMILIARITY] Validation: isNaN=${isNaN(finalMultiplier)}, isFinite=${isFinite(finalMultiplier)}, isInfinity=${finalMultiplier === Infinity}`);
     
@@ -93,7 +94,7 @@ export function calculateActionDuration(baseDuration, learningData, learningType
         const remainingTime = baseDuration - partialTime;
         console.log(`[FAMILIARITY] Time breakdown: partial=${partialTime}, remaining=${remainingTime}`);
         
-        const acceleratedPartialDuration = partialTime / 1.1; // +0.1x speed bonus
+        const acceleratedPartialDuration = partialTime / constants.familiarity.partialCompletionBonus; // Partial completion speed bonus
         const normalRemainingDuration = remainingTime; // Base speed
         const totalDuration = acceleratedPartialDuration + normalRemainingDuration;
         console.log(`[FAMILIARITY] Time calculation: ${partialTime}/1.1 + ${remainingTime} = ${totalDuration}`);

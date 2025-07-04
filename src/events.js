@@ -1,3 +1,7 @@
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const eventsData = require('../data/events.json');
+
 class Events {
     constructor() {
         this.events = new Map();
@@ -5,23 +9,15 @@ class Events {
     }
 
     initialize() {
-        // Initialize events with their timing and effects
-        this.events.set('hunger_starts', {
-            name: 'Hunger Starts',
-            triggerTime: 60, // 60 seconds
-            triggered: false,
-            effects: [
-                { type: 'startResourceDrain', resource: 'food' }
-            ]
-        });
-
-        this.events.set('carbon_filters_fail', {
-            name: 'Carbon Filters Fail',
-            triggerTime: 120, // 120 seconds
-            triggered: false,
-            effects: [
-                { type: 'stopAreaGeneration', location: 'Talos', resource: 'air' }
-            ]
+        // Initialize events from JSON data
+        eventsData.events.forEach(eventData => {
+            this.events.set(eventData.id, {
+                name: eventData.name,
+                triggerTime: eventData.triggerTime,
+                triggered: false,
+                effects: eventData.effects,
+                visible: eventData.visible
+            });
         });
     }
 
@@ -91,8 +87,10 @@ class Events {
 
     isHungerActive(currentTime) {
         // Returns true if hunger (food drain) should be active
-        // Hunger starts at 60 seconds, so before that we're satiated
-        return currentTime >= 60;
+        // Find hunger start time from events data
+        const hungerEvent = eventsData.events.find(event => event.id === 'hunger_starts');
+        const hungerStartTime = hungerEvent ? hungerEvent.triggerTime : 60;
+        return currentTime >= hungerStartTime;
     }
 }
 
