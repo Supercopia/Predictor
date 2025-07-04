@@ -89,7 +89,7 @@ class Events {
         // Returns true if hunger (food drain) should be active
         // Find hunger start time from events data
         const hungerEvent = eventsData.events.find(event => event.id === 'hunger_starts');
-        const hungerStartTime = hungerEvent ? hungerEvent.triggerTime : 60;
+        const hungerStartTime = hungerEvent?.triggerTime || 60;
         return currentTime >= hungerStartTime;
     }
 }

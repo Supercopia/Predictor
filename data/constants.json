@@ -14,10 +14,7 @@
     "// Soft cap system": "Linear progression limit and diminishing returns",
     "softCap": 3.0,
     "reductionFactor": 0.93,
-    "asymptoteLimit": 4.32857,
-    
-    "// Partial completion bonus": "Speed bonus for partially completed actions",
-    "partialCompletionBonus": 1.1
+    "asymptoteLimit": 4.32857
   },
   
   "// === VITAL RESOURCES SYSTEM ===": "Air, water, food consumption and capacity",
@@ -48,7 +45,10 @@
   "// === TIME SYSTEM ===": "Time-based mechanics and intervals",
   "time": {
     "// Event timing": "Various time-based triggers and intervals",
-    "baseEventInterval": 1.0
+    "baseEventInterval": 1.0,
+    
+    "// Default action duration": "Fallback duration when action.time is not specified",
+    "defaultActionDuration": 1
   },
   
   "// === INVENTORY SYSTEM ===": "Item restoration and capacity",

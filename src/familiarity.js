@@ -13,7 +13,7 @@ export function calculateSpeedMultiplier(completions, learningType = "slow") {
     console.log(`[FAMILIARITY] Parameter validation: completions isNaN=${isNaN(completions)}, isFinite=${isFinite(completions)}`);
     
     if (completions <= 0) {
-        console.log(`[FAMILIARITY] No completions (${completions} <= 0), returning base speed 1.0`);
+        console.log(`[FAMILIARITY] No completions (${completions} <= 0), returning base speed ${constants.familiarity.baseSpeedMultiplier}`);
         return constants.familiarity.baseSpeedMultiplier; // Base speed for no completions
     }
     
@@ -23,7 +23,7 @@ export function calculateSpeedMultiplier(completions, learningType = "slow") {
     
     // All completions get linear progression + first completion bonus
     const linearMultiplier = constants.familiarity.baseSpeedMultiplier + (completions * learningRate) + constants.familiarity.firstCompletionBonus;
-    console.log(`[FAMILIARITY] Linear multiplier: 1.0 + (${completions} × ${learningRate}) + 0.2 = ${linearMultiplier}`);
+    console.log(`[FAMILIARITY] Linear multiplier: ${constants.familiarity.baseSpeedMultiplier} + (${completions} × ${learningRate}) + ${constants.familiarity.firstCompletionBonus} = ${linearMultiplier}`);
     
     if (linearMultiplier <= constants.familiarity.softCap) {
         console.log(`[FAMILIARITY] Using linear multiplier: ${linearMultiplier} (≤ ${constants.familiarity.softCap})`);
@@ -43,7 +43,7 @@ export function calculateSpeedMultiplier(completions, learningType = "slow") {
     console.log(`[FAMILIARITY] Geometric series: ${a} * (1 - ${r}^${completionsOverCap}) / (1 - ${r}) = ${diminishedExcess}`);
     
     const finalMultiplier = constants.familiarity.softCap + diminishedExcess;
-    console.log(`[FAMILIARITY] Final multiplier: 3.0 + ${diminishingReturns} = ${finalMultiplier}`);
+    console.log(`[FAMILIARITY] Final multiplier: ${constants.familiarity.softCap} + ${diminishedExcess} = ${finalMultiplier}`);
     console.log(`[FAMILIARITY] Validation: isNaN=${isNaN(finalMultiplier)}, isFinite=${isFinite(finalMultiplier)}, isInfinity=${finalMultiplier === Infinity}`);
     
     return finalMultiplier;
@@ -94,10 +94,11 @@ export function calculateActionDuration(baseDuration, learningData, learningType
         const remainingTime = baseDuration - partialTime;
         console.log(`[FAMILIARITY] Time breakdown: partial=${partialTime}, remaining=${remainingTime}`);
         
-        const acceleratedPartialDuration = partialTime / constants.familiarity.partialCompletionBonus; // Partial completion speed bonus
+        const acceleratedPartialDuration = partialTime / (constants.familiarity.baseSpeedMultiplier + constants.familiarity.firstCompletionBonus); // Partial completion uses same bonus as first completion
         const normalRemainingDuration = remainingTime; // Base speed
         const totalDuration = acceleratedPartialDuration + normalRemainingDuration;
-        console.log(`[FAMILIARITY] Time calculation: ${partialTime}/1.1 + ${remainingTime} = ${totalDuration}`);
+        const partialMultiplier = constants.familiarity.baseSpeedMultiplier + constants.familiarity.firstCompletionBonus;
+        console.log(`[FAMILIARITY] Time calculation: ${partialTime}/${partialMultiplier} + ${remainingTime} = ${totalDuration}`);
         
         return totalDuration;
     }

@@ -2,7 +2,14 @@
     "locations": [
         {
             "name": "Inside Talos",
-            "areaResources": null
+            "areaResources": {
+                "resources": {
+                    "air": { "current": 50, "initial": 50 }
+                },
+                "generators": {
+                    "air": 0.2
+                }
+            }
         },
         {
             "name": "Outside Talos"
@@ -27,14 +34,25 @@
         },
         {
             "name": "Inside Laurion",
-            "areaResources": null
+            "areaResources": {
+                "resources": {
+                    "air": { "current": 30, "initial": 30 },
+                    "power": { "current": 25, "initial": 25 }
+                },
+                "generators": {}
+            }
         },
         {
             "name": "Dam"
         },
         {
             "name": "Inside Santorini",
-            "areaResources": null
+            "areaResources": {
+                "resources": {
+                    "power": { "current": -1, "initial": -1 }
+                },
+                "generators": {}
+            }
         },
         {
             "name": "Inside Astrape",

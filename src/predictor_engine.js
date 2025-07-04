@@ -74,7 +74,7 @@ export function evaluateActionList(actionList, learningState = {}) {
     };
 
     function applyVitalDrain(state, effect, areaResources, events) {
-        const duration = effect.time || 1;
+        const duration = effect.time || constants.time.defaultActionDuration;
         for (let vital of ["air", "water", "food"]) {
             // Skip food drain during satiated period (0-60s)
             if (vital === "food" && !events.isHungerActive(state.timeElapsed)) {
@@ -142,7 +142,7 @@ export function evaluateActionList(actionList, learningState = {}) {
                 loopFailed: false,
                 failureReason: `Invalid location: must be in ${effect.locationRequirement}`,
                 actionDuration: 0,
-                baseDuration: effect.time || 1,
+                baseDuration: effect.time || constants.time.defaultActionDuration,
                 learningData: null,
                 areaResources: areaResources.getAllResources(),
                 events: events.getEventStatus(state.timeElapsed)
@@ -171,7 +171,7 @@ export function evaluateActionList(actionList, learningState = {}) {
                 loopFailed: false,
                 failureReason: `Invalid target location: ${effect.location} is not a valid location`,
                 actionDuration: 0,
-                baseDuration: effect.time || 1,
+                baseDuration: effect.time || constants.time.defaultActionDuration,
                 learningData: null,
                 areaResources: areaResources.getAllResources(),
                 events: events.getEventStatus(state.timeElapsed)
@@ -189,10 +189,10 @@ export function evaluateActionList(actionList, learningState = {}) {
         
         if (bypassLearning) {
             // Wait action uses base time, no learning
-            actionDuration = effect.time || 1;
+            actionDuration = effect.time || constants.time.defaultActionDuration;
             console.log(`[ENGINE] Action "${action}" bypassed learning, using base duration: ${actionDuration}`);
         } else {
-            const baseDuration = effect.time || 1;
+            const baseDuration = effect.time || constants.time.defaultActionDuration;
             console.log(`[ENGINE] Base duration from effect: ${baseDuration}`);
             console.log(`[ENGINE] Base duration type: ${typeof baseDuration}`);
             
@@ -284,14 +284,14 @@ export function evaluateActionList(actionList, learningState = {}) {
             loopFailed: failed,
             failureReason: failed ? reason : null,
             actionDuration: actionDuration,
-            baseDuration: effect.time || 1,
+            baseDuration: effect.time || constants.time.defaultActionDuration,
             learningData: currentLearningState[action] ? { ...currentLearningState[action] } : null,
             areaResources: areaResourcesData,
             events: eventsData
         };
         
         console.log(`[ENGINE] Timeline entry created:`, timelineEntry);
-        console.log(`[ENGINE] Timeline entry duration validation: actionDuration=${actionDuration}, baseDuration=${effect.time || 1}`);
+        console.log(`[ENGINE] Timeline entry duration validation: actionDuration=${actionDuration}, baseDuration=${effect.time || constants.time.defaultActionDuration}`);
         
         timeline.push(timelineEntry);
     }

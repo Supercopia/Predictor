@@ -1,5 +1,19 @@
 import { constants } from './constants.js';
 
+// Load locations data for area resources
+let locationsData = { locations: [] };
+
+// Try to load locations dynamically
+(async () => {
+    try {
+        const response = await fetch('/data/locations.json');
+        locationsData = await response.json();
+        console.log('Loaded locations for area resources:', locationsData.locations.length);
+    } catch (error) {
+        console.warn('Failed to load locations.json for area resources, using defaults:', error);
+    }
+})();
+
 class AreaResources {
     constructor() {
         this.resources = new Map();
@@ -8,24 +22,31 @@ class AreaResources {
     }
 
     initialize() {
-        // Initialize area resources for each location
-        this.resources.set('Talos', {
-            air: { current: 50, initial: 50 }
+        // Initialize area resources from locations data
+        locationsData.locations.forEach(location => {
+            if (location.areaResources) {
+                // Set up resources for this location
+                if (location.areaResources.resources) {
+                    this.resources.set(location.name, { ...location.areaResources.resources });
+                }
+                
+                // Set up generators for this location
+                if (location.areaResources.generators && Object.keys(location.areaResources.generators).length > 0) {
+                    this.generators.set(location.name, { ...location.areaResources.generators });
+                }
+            }
         });
         
-        this.resources.set('Laurion', {
-            air: { current: 30, initial: 30 }, // Placeholder value
-            power: { current: 25, initial: 25 }  // Placeholder value
-        });
-        
-        this.resources.set('Santorini', {
-            power: { current: -1, initial: -1 }  // -1 = unlimited
-        });
-
-        // Initialize generators (resource generation rates)
-        this.generators.set('Talos', {
-            air: constants.areaResources.airGenerationRate  // Air generation rate
-        });
+        // Fallback initialization for compatibility (if locations.json fails to load)
+        if (locationsData.locations.length === 0) {
+            console.warn('Falling back to hardcoded area resources');
+            this.resources.set('Inside Talos', {
+                air: { current: 50, initial: 50 }
+            });
+            this.generators.set('Inside Talos', {
+                air: constants.areaResources.airGenerationRate
+            });
+        }
     }
 
     resetResources() {
