@@ -114,6 +114,46 @@
 3. **Events Fallbacks**: Proper constant references instead of hardcoded `60`
 4. **Achievement**: Zero hardcoded values in entire codebase
 
+### Area Resources System Overhaul (Continued Session)
+1. **Problem Identification**: 
+   - Arbitrary relationship between starting values and maximum capacity
+   - Runtime `current` values polluting configuration files
+   - Placeholder values for uncertain game data
+
+2. **Architecture Changes in `src/area_resources.js`**:
+   - **Runtime Current Field**: Added `current: resourceData.initial` during initialization
+   - **Maximum Capacity Logic**: Changed from `Math.min(resource.current, resource.initial)` to `Math.min(resource.current, resource.maximum)`
+   - **Unlimited Resources**: Support for resources without maximum field
+   - **Clean Initialization**: Removed dependency on `current` values in JSON
+
+3. **Configuration Structure Update in `data/locations.json`**:
+   - **Removed Runtime Values**: Eliminated `current` field from all resource definitions
+   - **Separated Concerns**: Independent `initial` and `maximum` fields
+   - **Inside Talos**: `{ "initial": 50, "maximum": 50 }` for air
+   - **Inside Laurion**: Air `{ "initial": 15, "maximum": 15 }`, Power `{ "initial": 0, "maximum": 1000 }`
+   - **Inside Santorini**: Removed placeholder power values (set to null)
+
+4. **Realistic Resource Modeling**:
+   - Power systems can start at 0 and generate up to different maximums
+   - No arbitrary constraints linking starting amount to capacity
+   - Clean user configuration with only meaningful values
+
+5. **Code Implementation Details**:
+   ```javascript
+   // Runtime current field initialization
+   for (const [resourceType, resourceData] of Object.entries(location.areaResources.resources)) {
+       locationResources[resourceType] = {
+           ...resourceData,
+           current: resourceData.initial
+       };
+   }
+   
+   // Maximum-based generation limits
+   if (resource.maximum !== undefined) {
+       resource.current = Math.min(resource.current, resource.maximum);
+   }
+   ```
+
 ### Click-to-Add Timeline Functionality
 1. **Implementation**: Added `addActionToTimeline()` function for centralized timeline management
 2. **User Interaction**: Left-click adds to top, right-click adds to bottom of timeline

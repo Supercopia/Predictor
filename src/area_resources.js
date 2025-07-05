@@ -27,7 +27,15 @@ class AreaResources {
             if (location.areaResources) {
                 // Set up resources for this location
                 if (location.areaResources.resources) {
-                    this.resources.set(location.name, { ...location.areaResources.resources });
+                    const locationResources = {};
+                    // Add current field at runtime, initialized to initial value
+                    for (const [resourceType, resourceData] of Object.entries(location.areaResources.resources)) {
+                        locationResources[resourceType] = {
+                            ...resourceData,
+                            current: resourceData.initial
+                        };
+                    }
+                    this.resources.set(location.name, locationResources);
                 }
                 
                 // Set up generators for this location
@@ -41,7 +49,7 @@ class AreaResources {
         if (locationsData.locations.length === 0) {
             console.warn('Falling back to hardcoded area resources');
             this.resources.set('Inside Talos', {
-                air: { current: 50, initial: 50 }
+                air: { current: 50, initial: 50, maximum: 50 }
             });
             this.generators.set('Inside Talos', {
                 air: constants.areaResources.airGenerationRate
@@ -105,8 +113,10 @@ class AreaResources {
         const generatedAmount = generationRate * deltaTime;
         resource.current = Math.max(0, resource.current + generatedAmount);
         
-        // Cap at initial value (resources don't go above their starting capacity)
-        resource.current = Math.min(resource.current, resource.initial);
+        // Cap at maximum value (or unlimited if no maximum specified)
+        if (resource.maximum !== undefined) {
+            resource.current = Math.min(resource.current, resource.maximum);
+        }
     }
 
     stopGeneration(location, resourceType) {

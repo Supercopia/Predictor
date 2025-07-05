@@ -4,7 +4,7 @@
             "name": "Inside Talos",
             "areaResources": {
                 "resources": {
-                    "air": { "current": 50, "initial": 50 }
+                    "air": { "initial": 50, "maximum": 50 }
                 },
                 "generators": {
                     "air": 0.2
@@ -36,8 +36,8 @@
             "name": "Inside Laurion",
             "areaResources": {
                 "resources": {
-                    "air": { "current": 30, "initial": 30 },
-                    "power": { "current": 25, "initial": 25 }
+                    "air": { "initial": 15, "maximum": 15 },
+                    "power": { "initial": 0, "maximum": 1000 }
                 },
                 "generators": {}
             }
@@ -47,12 +47,7 @@
         },
         {
             "name": "Inside Santorini",
-            "areaResources": {
-                "resources": {
-                    "power": { "current": -1, "initial": -1 }
-                },
-                "generators": {}
-            }
+            "areaResources": null
         },
         {
             "name": "Inside Astrape",
