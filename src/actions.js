@@ -1,6 +1,4 @@
-// Import actions from JSON file
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-const actionsData = require('../data/actions.json');
+// Import actions from dual-environment loader
+import { actions } from './loader.js';
 
-export const actions = actionsData;
+export { actions };

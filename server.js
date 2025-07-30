@@ -164,6 +164,16 @@ app.get('/src/events.js', (req, res) => {
     serveStaticFile(res, filePath, 'application/javascript');
 });
 
+app.get('/src/constants.js', (req, res) => {
+    const filePath = join(__dirname, 'src', 'constants.js');
+    serveStaticFile(res, filePath, 'application/javascript');
+});
+
+app.get('/src/loader.js', (req, res) => {
+    const filePath = join(__dirname, 'src', 'loader.js');
+    serveStaticFile(res, filePath, 'application/javascript');
+});
+
 // Handle relative paths for JavaScript modules
 app.get('/js/*/predictor_engine.js', (req, res) => {
     const filePath = join(__dirname, 'src', 'predictor_engine.js');
@@ -230,9 +240,14 @@ app.get('/test', (req, res) => {
     res.send('Test successful!');
 });
 
-// Catch-all route handler for SPA navigation
-app.get('*', (req, res) => {
-    res.sendFile(join(__dirname, 'public', 'index.html'));
+// Proper 404 error handling with logging
+app.use((req, res) => {
+    console.error(`[SERVER] 404 - Resource not found: ${req.originalUrl}`);
+    res.status(404).json({
+        error: 'Not Found',
+        message: `The requested resource ${req.originalUrl} was not found on this server.`,
+        path: req.originalUrl
+    });
 });
 
 // Start the server

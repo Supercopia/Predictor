@@ -11,7 +11,7 @@ import { AreaResources } from './area_resources.js';
 import { Events } from './events.js';
 
 // Load locations data for validation
-let validLocations = constants.locations.defaultLocations;
+let validLocations = null;
 
 // Try to load locations dynamically
 (async () => {
@@ -21,7 +21,9 @@ let validLocations = constants.locations.defaultLocations;
         validLocations = locationsData.locations.map(loc => typeof loc === 'string' ? loc : loc.name);
         console.log('Loaded locations:', validLocations);
     } catch (error) {
-        console.warn('Failed to load locations.json, using defaults:', error);
+        console.error('Failed to load locations.json:', error);
+        validLocations = constants.locations.defaultLocations;
+        console.warn('Using fallback locations:', validLocations);
     }
 })();
 

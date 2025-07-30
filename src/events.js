@@ -1,6 +1,5 @@
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-const eventsData = require('../data/events.json');
+// Import events data from dual-environment loader
+import { eventsData } from './loader.js';
 
 class Events {
     constructor() {
