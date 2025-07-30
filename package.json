@@ -2,14 +2,14 @@
   "name": "predictor",
   "version": "1.0.0",
   "description": "A simulation and analysis tool for a text-based exploration game with time-loop mechanics",
-  "main": "src/predictor_engine.js",
-  "type": "module",
+  "main": "main.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
+    "start": "electron .",
+    "dev": "NODE_ENV=development electron .",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "build": "electron-builder"
   },
   "keywords": [
     "game",
@@ -18,12 +18,37 @@
   ],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.18.2"
+  "build": {
+    "appId": "com.predictor.app",
+    "productName": "Predictor",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "index.html",
+      "css/**/*",
+      "js/**/*",
+      "src/**/*",
+      "data/**/*",
+      "schemas/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "css/icon.ico"
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
   },
   "devDependencies": {
     "ajv": "^8.17.1",
+    "electron": "^37.2.4",
+    "electron-builder": "^26.0.12",
     "jest": "^29.7.0",
     "nodemon": "^3.1.0"
   }

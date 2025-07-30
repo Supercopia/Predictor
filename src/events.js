@@ -1,23 +1,38 @@
-// Import events data from dual-environment loader
-import { eventsData } from './loader.js';
+// Events data will be loaded dynamically using Electron API
+
+let eventsData = null;
+
+// Load events data using Electron API
+async function loadEventsData() {
+    if (!eventsData && window.electronAPI) {
+        eventsData = await window.electronAPI.loadEvents();
+    }
+    return eventsData;
+}
 
 class Events {
     constructor() {
         this.events = new Map();
-        this.initialize();
+        this.initialized = false;
     }
 
-    initialize() {
-        // Initialize events from JSON data
-        eventsData.events.forEach(eventData => {
-            this.events.set(eventData.id, {
-                name: eventData.name,
-                triggerTime: eventData.triggerTime,
-                triggered: false,
-                effects: eventData.effects,
-                visible: eventData.visible
-            });
-        });
+    async initialize() {
+        if (!this.initialized) {
+            const data = await loadEventsData();
+            if (data && data.events) {
+                // Initialize events from JSON data
+                data.events.forEach(eventData => {
+                    this.events.set(eventData.id, {
+                        name: eventData.name,
+                        triggerTime: eventData.triggerTime,
+                        triggered: false,
+                        effects: eventData.effects,
+                        visible: eventData.visible
+                    });
+                });
+                this.initialized = true;
+            }
+        }
     }
 
     resetEvents() {
@@ -84,10 +99,13 @@ class Events {
         return status;
     }
 
-    isHungerActive(currentTime) {
+    async isHungerActive(currentTime) {
         // Returns true if hunger (food drain) should be active
         // Find hunger start time from events data
-        const hungerEvent = eventsData.events.find(event => event.id === 'hunger_starts');
+        const data = await loadEventsData();
+        if (!data || !data.events) return currentTime >= 60; // fallback
+        
+        const hungerEvent = data.events.find(event => event.id === 'hunger_starts');
         const hungerStartTime = hungerEvent?.triggerTime || 60;
         return currentTime >= hungerStartTime;
     }

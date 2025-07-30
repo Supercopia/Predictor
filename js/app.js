@@ -3,10 +3,8 @@ let evaluateActionList;
 let parseLearningCSV, initializeLearningState;
 let AreaResources, Events;
 
-// Try different relative paths to handle various browser environments
+// Use local src path for Electron
 const importPaths = [
-    '../src/predictor_engine.js',
-    '/src/predictor_engine.js',
     './src/predictor_engine.js'
 ];
 
@@ -33,8 +31,6 @@ async function loadDependencies() {
     
     // Load learning system modules
     const learningPaths = [
-        '../src/csv_parser.js',
-        '/src/csv_parser.js',
         './src/csv_parser.js'
     ];
     
@@ -71,8 +67,6 @@ async function loadDependencies() {
     // Load area resources and events modules
     let areaResourcesLoaded = false;
     const areaResourcesPaths = [
-        '../src/area_resources.js',
-        '/src/area_resources.js',
         './src/area_resources.js'
     ];
     
@@ -374,13 +368,7 @@ async function loadActions() {
     
     try {
         console.log('Loading actions...');
-        const response = await fetch('/api/actions');
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const data = await response.json();
+        const data = await window.electronAPI.loadActions();
         
         // Validate response
         if (!data || typeof data !== 'object') {
@@ -454,13 +442,7 @@ async function loadLocations() {
     
     try {
         console.log('Loading locations...');
-        const response = await fetch('/data/locations.json');
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const data = await response.json();
+        const data = await window.electronAPI.loadLocations();
         
         // Validate response - check for locations array in object
         if (data && Array.isArray(data.locations)) {
